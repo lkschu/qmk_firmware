@@ -66,6 +66,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  - [rgblight](https://docs.qmk.fm/#/feature_rgblight) this might also be usefull
 
 
+## Links to later look into:
+ - https://www.reddit.com/r/olkb/comments/lmtgxc/introducing_luna_the_qmk_keyboard_pet/
+ - https://www.reddit.com/r/olkb/comments/80rk31/qmk_question_on_timer_accuracy_for_pomodoro/
+ - https://www.reddit.com/r/olkb/comments/riddkw/problem_with_a_timer_on_qmk/
+ - https://www.reddit.com/r/olkb/comments/fo6lo8/timed_key_press_using_qmk/
 
 
 
