@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdio.h>
 
 #ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
+    //Following line allows macro to read current RGB settings
+    extern rgblight_config_t rgblight_config;
 #endif
 
 /* track custom keycodes, not needed for combikeys like shift-rightalt+x since there are special keys already defined */
@@ -31,6 +31,7 @@ enum custom_keycodes {
     EURO,
 };
 
+//These also must be set for modifier keys: MO(4) -> change to L_RAISE while pressed
 #define L_BASE 0
 #define L_LOWER 2
 #define L_RAISE 4
@@ -76,61 +77,73 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [L_ADJUST] = LAYOUT_split_3x6_3( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      RGB_TOG, XXXXXXX, RGB_M_P,RGB_RMOD, RGB_MOD, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      RGB_TOG, EEP_RST, RGB_M_P,RGB_RMOD, RGB_MOD, XXXXXXX,                        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXXX,                      XXXXXXX, EURO, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXXX,                        KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXXX,                      XXXXXXX, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX,   TG(8), XXXXXXX,   XXXXXXX,    TG(8), XXXXXXX \
+                                          KC_LCTL,   TG(8), XXXXXXX,   XXXXXXX,    TG(8), KC_LALT \
                                       //`--------------------------'  `--------------------------'
   )
 };
 
-void keyboard_post_init_user(void) {
-    //this is run at start after setting everything else
-    rgb_matrix_set_color_all(15,40,40);
-    // = hsv(128,160,16)
+#ifdef ENABLE_UNDERGLOW
+    bool underglowon = true;
+#else
+    bool underglowon = false;
+#endif
+
+void set_underglow(void) {
+    // this sets underglow, ie the lower 6 leds but only if not set
+    // count_underglow is to limit led rewrites
+    if ( underglowon ) {
+        // rgb value
+        uint8_t r = 10; uint8_t g = 15; uint8_t b = 10;
+        for (uint8_t i = 0; i < RGBLED_NUM; i++) {
+            if (HAS_FLAGS(g_led_config.flags[i], 0x02)) { // 0x02 == LED_FLAG_Underglow
+                rgb_matrix_set_color(i, r, g, b);
+            }
+        }
+    }
 }
 
-
-void rgb_matrix_indicators_kb(void) {
+void set_indicator(void) {
     //this sets colors for normal layer, adjust layer, or else
-    uint8_t r = 15;
-    uint8_t g = 15;
-    uint8_t b = 15;
+        uint8_t r = 80; uint8_t g = 0; uint8_t b = 0;
     if (layer_state_is(L_BASE)) {
-        g = 40;
-        b = 40;
+        r = 15; g = 40; b = 25;
     } else {
         if (layer_state_is(L_ADJUST)) {
-            r = 40;
-            g = 5;
-            b = 5;
+            r = 40; g = 20; b = 0;
         } else {
-            b = 30;
+            r = 15; g = 30; b = 40;
         }
     }
     //set led number 6(thumb) to this color
     rgb_matrix_set_color(6,r,g,b);
-    // OR loop over all keys declared as modifiers
-    //for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+    // OR loop over all leds declared as modifiers
+    //for (uint8_t i = 0; i < RGBLED_NUM; i++) {
     //    if (HAS_FLAGS(g_led_config.flags[i], 0x01)) { // 0x01 == LED_FLAG_MODIFIER
     //        rgb_matrix_set_color(i, r, g, b);
     //    }
     //}
 }
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    // this sets underglow, ie the lower 6 leds
-    uint8_t r = 27;
-    uint8_t g = 27;
-    uint8_t b = 27;
-    for (uint8_t i = led_min; i <= led_max; i++) {
-        if (HAS_FLAGS(g_led_config.flags[i], 0x02)) { // 0x02 == LED_FLAG_Underglow
-            rgb_matrix_set_color(i, r, g, b);
-        }
-    }
+
+void keyboard_post_init_user(void) {
+    //this is run (once?) at start after setting everything else
+    rgb_matrix_set_color_all(15,40,30);
+    // = hsv(128,160,40)
+}
+
+
+void rgb_matrix_indicators_kb(void) {
+    //gets called every cycle?
+    //at least can be used to set leds, especially if there are A LOT of leds and
+    //setting all could be to expensive
+    set_underglow();
+    set_indicator();
 }
 
 

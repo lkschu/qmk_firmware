@@ -18,6 +18,29 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/* obligatory */
+#ifdef VENDOR_ID
+    #undef VENDOR_ID
+    #define VENDOR_ID    0x4269
+#endif
+#ifdef PRODUCT_ID
+    #undef PRODUCT_ID
+    #define PRODUCT_ID   0x0420
+#endif
+#ifdef DEVICE_VER
+    #undef DEVICE_VER
+    #define DEVICE_VER   0x0069
+#endif
+#ifdef MANUFACTURER
+    #undef MANUFACTURER
+    #define MANUFACTURER "Corne"
+#endif
+#ifdef PRODUCT
+    #undef PRODUCT
+    #define PRODUCT      "Keyboard crkbd"
+#endif
+
+
 #pragma once
 
 //#define USE_MATRIX_I2C
@@ -33,16 +56,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_EFFECT_BREATHING
-    //#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-    //#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-    //#define RGBLIGHT_EFFECT_SNAKE
-    //#define RGBLIGHT_EFFECT_KNIGHT
-    //#define RGBLIGHT_EFFECT_CHRISTMAS
-    //#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-    //#define RGBLIGHT_EFFECT_RGB_TEST
+    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+    #define RGBLIGHT_EFFECT_SNAKE
+    #define RGBLIGHT_EFFECT_KNIGHT
+    #define RGBLIGHT_EFFECT_CHRISTMAS
+    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+    #define RGBLIGHT_EFFECT_RGB_TEST
     #define RGBLIGHT_EFFECT_ALTERNATING
     #define RGBLIGHT_EFFECT_TWINKLE
-    #define RGBLIGHT_LIMIT_VAL 140
+    #define RGBLIGHT_LIMIT_VAL 100
     #define RGBLIGHT_HUE_STEP 4
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8
@@ -51,6 +74,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
     //required by rgb matrix indicators
     #define SPLIT_LAYER_STATE_ENABLE
+
+    #define RGBLIGHT_LIMIT_VAL 100
+    #define RGBLIGHT_HUE_STEP 4
+    #define RGBLIGHT_SAT_STEP 8
+    #define RGBLIGHT_VAL_STEP 8
+
     #define RGB_MATRIX_KEYPRESSES
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
     #define RGBLIGHT_SLEEP
@@ -73,10 +102,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 
     #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE
-    #define RGB_MATRIX_STARTUP_HUE 128
+    //these are mostly guesses...
+    //take a color picker, like https://alloyui.com/examples/color-picker/hsv.html
+    //calculate HSV so that max hsv is 255,255,255 instead of 360,100,100
+    //then adjust hue and value accordingly, if rgb and hsv don't match
+    // known values:
+    // - cyan rgb(15,40,40) = hsv(138,160,40)
+    // - mint rgb(15,40,25) = hsv(118,160,40
+    #define RGB_MATRIX_STARTUP_HUE 95
     #define RGB_MATRIX_STARTUP_SAT 160
-    #define RGB_MATRIX_STARTUP_VAL 16
-    // = hsv(128,160,16)
+    #define RGB_MATRIX_STARTUP_VAL 40
+    #define RGB_MATRIX_STARTUP_SPD 120
+
+    // custom constants:
+    #define ENABLE_UNDERGLOW
 
 #endif
 
