@@ -87,28 +87,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-
+void keyboard_post_init_user(void) {
+    //this is run at start after setting everything else
+    rgb_matrix_set_color_all(15,40,40);
+}
 
 
 void rgb_matrix_indicators_kb(void) {
     //this sets colors for normal layer, adjust layer, or else
-    uint8_t r = 0;
-    uint8_t g = 8;
-    uint8_t b = 8;
+    uint8_t r = 15;
+    uint8_t g = 15;
+    uint8_t b = 15;
     if (layer_state_is(L_BASE)) {
         g = 40;
+        b = 40;
     } else {
         if (layer_state_is(L_ADJUST)) {
             r = 40;
+            g = 5;
+            b = 5;
         } else {
-            b = 40;
+            b = 30;
         }
     }
     //set led number 6(thumb) to this color
     //rgb_matrix_set_color(6,r,g,b);
     // OR loop over all keys declared as modifiers
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-        if (HAS_FLAGS(g_led_config.flags[i], 0x01)) { // 0x02 == LED_FLAG_MODIFIER
+        if (HAS_FLAGS(g_led_config.flags[i], 0x01)) { // 0x01 == LED_FLAG_MODIFIER
             rgb_matrix_set_color(i, r, g, b);
         }
     }

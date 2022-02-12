@@ -52,6 +52,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     //required by rgb matrix indicators
     #define SPLIT_LAYER_STATE_ENABLE
     #define RGB_MATRIX_KEYPRESSES
+    #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+    #define RGBLIGHT_SLEEP
+    #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+    #define RGB_DISABLE_TIMEOUT 600000    // in ms -> 600000ms = 10min
 
     //RGB_MATRIX_SOLID_COLOR = 1     // Static single hue, no speed support
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE   // Pulses keys hit to hue & value then fades value out
@@ -64,7 +68,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT    // Static gradient left to right, speed controls how much gradient changes
     #define ENABLE_RGB_MATRIX_BREATHING           // Single hue brightness cycling animation
     #define ENABLE_RGB_MATRIX_BAND_SAT        // Single hue band fading saturation scrolling left to right
-    #define ENABLE_RGB_MATRIX_ALPHAS_MODS         // Static dual hue, speed is hue for secondary hue
+    //#define ENABLE_RGB_MATRIX_ALPHAS_MODS         // Static dual hue, speed is hue for secondary hue
+    #define ENABLE_RGB_MATRIX_SPLASH
+    #define ENABLE_RGB_MATRIX_SOLID_SPLASH
+
 #endif
 
 
