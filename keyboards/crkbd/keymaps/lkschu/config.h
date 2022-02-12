@@ -57,13 +57,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
     #define RGB_DISABLE_TIMEOUT 600000    // in ms -> 600000ms = 10min
 
-    //RGB_MATRIX_SOLID_COLOR = 1     // Static single hue, no speed support
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE   // Pulses keys hit to hue & value then fades value out
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE      // Static single hue, pulses keys hit to shifted hue then fades to current hue
+    #define ENABLE_RGB_MATRIX_HUE_BREATHING       // Hue shifts up a slight ammount at the same time, then shifts back
+    #define ENABLE_RGB_MATRIX_SOLID_COLOR = 1     // Static single hue, no speed support
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE   // Pulses keys hit to hue & value then fades value out
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS      // Hue & value pulse the same column and row of a single key hit then fades value out
     #define ENABLE_RGB_MATRIX_HUE_WAVE            // Hue shifts up a slight ammount and then back down in a wave to the right
     #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL       // Single hue fractal filled keys pulsing horizontally out to edges
-    #define ENABLE_RGB_MATRIX_HUE_BREATHING       // Hue shifts up a slight ammount at the same time, then shifts back
     #define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT    // Full gradient scrolling left to right
     #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT    // Static gradient left to right, speed controls how much gradient changes
     #define ENABLE_RGB_MATRIX_BREATHING           // Single hue brightness cycling animation
@@ -71,6 +71,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     //#define ENABLE_RGB_MATRIX_ALPHAS_MODS         // Static dual hue, speed is hue for secondary hue
     #define ENABLE_RGB_MATRIX_SPLASH
     #define ENABLE_RGB_MATRIX_SOLID_SPLASH
+
+    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE
+    #define RGB_MATRIX_STARTUP_HUE 128
+    #define RGB_MATRIX_STARTUP_SAT 160
+    #define RGB_MATRIX_STARTUP_VAL 16
+    // = hsv(128,160,16)
 
 #endif
 

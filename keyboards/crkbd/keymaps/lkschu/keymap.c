@@ -90,6 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void keyboard_post_init_user(void) {
     //this is run at start after setting everything else
     rgb_matrix_set_color_all(15,40,40);
+    // = hsv(128,160,16)
 }
 
 
@@ -111,13 +112,13 @@ void rgb_matrix_indicators_kb(void) {
         }
     }
     //set led number 6(thumb) to this color
-    //rgb_matrix_set_color(6,r,g,b);
+    rgb_matrix_set_color(6,r,g,b);
     // OR loop over all keys declared as modifiers
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-        if (HAS_FLAGS(g_led_config.flags[i], 0x01)) { // 0x01 == LED_FLAG_MODIFIER
-            rgb_matrix_set_color(i, r, g, b);
-        }
-    }
+    //for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+    //    if (HAS_FLAGS(g_led_config.flags[i], 0x01)) { // 0x01 == LED_FLAG_MODIFIER
+    //        rgb_matrix_set_color(i, r, g, b);
+    //    }
+    //}
 }
 
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
