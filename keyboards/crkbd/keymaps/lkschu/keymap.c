@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_PGUP, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     KC_LGUI,    TG(8),RALT(KC_S), KC_TILD, KC_UNDS, KC_PLUS,                    KC_HOME,  KC_DEL,  KC_INS,  KC_END, KC_PGDN, KC_QUOT,\
+      KC_LGUI,  TG(8),RALT(KC_S), KC_TILD, KC_UNDS, KC_PLUS,                     KC_HOME,  KC_DEL,  KC_INS,  KC_END, KC_PGDN, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LCTL, XXXXXXX,  KC_SPC,    KC_ENT,  XXXXXXX, KC_LALT \
                                       //`--------------------------'  `--------------------------'
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXXX,                        KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXXX,                      XXXXXXX, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LCTL,   TG(8), XXXXXXX,   XXXXXXX,    TG(8), KC_LALT \
                                       //`--------------------------'  `--------------------------'
@@ -95,11 +95,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 
 void set_underglow(void) {
-    // this sets underglow, ie the lower 6 leds but only if not set
-    // count_underglow is to limit led rewrites
+    // this sets underglow, ie the lower 6 leds
     if ( underglowon ) {
         // rgb value
         uint8_t r = 10; uint8_t g = 15; uint8_t b = 10;
+        // loop over all leds, check if flag is set to underglow, and set color
         for (uint8_t i = 0; i < RGBLED_NUM; i++) {
             if (HAS_FLAGS(g_led_config.flags[i], 0x02)) { // 0x02 == LED_FLAG_Underglow
                 rgb_matrix_set_color(i, r, g, b);
@@ -122,7 +122,7 @@ void set_indicator(void) {
     }
     //set led number 6(thumb) to this color
     rgb_matrix_set_color(6,r,g,b);
-    // OR loop over all leds declared as modifiers
+    // OR loop over all leds declared as modifiers:
     //for (uint8_t i = 0; i < RGBLED_NUM; i++) {
     //    if (HAS_FLAGS(g_led_config.flags[i], 0x01)) { // 0x01 == LED_FLAG_MODIFIER
     //        rgb_matrix_set_color(i, r, g, b);
@@ -133,15 +133,14 @@ void set_indicator(void) {
 
 void keyboard_post_init_user(void) {
     //this is run (once?) at start after setting everything else
+    //this led call propably would have to be send all the time, not only at startup, therefore default values in config.h are set aswell
     rgb_matrix_set_color_all(15,40,30);
-    // = hsv(128,160,40)
 }
 
 
 void rgb_matrix_indicators_kb(void) {
     //gets called every cycle?
-    //at least can be used to set leds, especially if there are A LOT of leds and
-    //setting all could be to expensive
+    //at least can be used to set leds
     set_underglow();
     set_indicator();
 }
