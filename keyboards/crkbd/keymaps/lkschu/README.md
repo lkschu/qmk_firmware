@@ -71,7 +71,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 ## Expanding this layout
 
  - [quantum-functions] describes many usefull functions which are getting called on init, sleep, etc.
- - [feature-layers] explain which special layer functionallity can be used. LED matrix is defined in [this file][https://github.com/lkschu/qmk_firmware/blob/master/keyboards/crkbd/rev1/rev1.c]. First it defines the mapping key<->led (these are not all leds!). Then it defines a list of coordinates, each corresponding to 1 led (these are all leds). Then it defines a list of flags, which declare the role of the given led(by index). Roles like normal=4,underglow=2 or modifiers=1.
+ - [feature-layers] explain which special layer functionallity can be used. LED matrix is defined in [this file](https://github.com/lkschu/qmk_firmware/blob/master/keyboards/crkbd/rev1/rev1.c).\
+First it defines the mapping key<->led (these don't have to be all leds!). Then it defines a list of coordinates, each corresponding to 1 led (these are all leds). Then it defines a list of flags, which declare the role of the given led(by index) like normal=4,underglow=2 or modifiers=1.
  - [rgblight](https://docs.qmk.fm/#/feature_rgblight) this might also be usefull
 
 
