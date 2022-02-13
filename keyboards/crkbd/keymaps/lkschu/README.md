@@ -93,7 +93,7 @@ First it defines the mapping key&harr;led (these don't have to be all leds!). Th
 
 [//]: # (Everything after this should not be seen... References:)
 
-   [qmk-newb]: <https://docs.qmk.fm/#/newbs>
+   [qmk-newbs]: <https://docs.qmk.fm/#/newbs>
 
    [alloyui]: <https://alloyui.com/examples/color-picker/hsv.html>
    [qmk-keycodes]: <https://docs.qmk.fm/#/keycodes>
