@@ -1,17 +1,26 @@
 # CRKBD keymap
 
-a keymap for the crkbd/Corne keyboard intended for systems using the us-international keyboard layout.
+
+A keymap for the crkbd/Corne keyboard intended for systems using the us-international keyboard layout.
+
 
 For general adwise on how to use this please visit [qmk-newbs].
 
 
+> :warning: I switched to the elite pi with the the RP2040 as micro controller, when compiling for Atmega32u4 the filesize might be too large!
+> ```bash
+> qmk compile -kb crkbd -km lkschu -e CONVERT_TO=elite_pi
+> ```
 
-## Modifying this layout
 
-Most modification of keycodes and colors (like underglow and indicators) can be done in **keymap.c**, adding/removing animations and setting default values is mostly done in **config.h**.
+# Modifying this keymap
 
- - [alloyui] features a usefull colorpicker to convert rgb into hsv, however hsv on the website is limited by 360°,100%,100% and not by 255,255,255 so this would have to be calculated manually. Hue is still a bit off most of the time so manually adjusting might be necessary.
- - [qmk-keycodes] lists all available keycodes. Note the modifiers keycodes like ``RALT(KC_5)`` which sends holding right alt and pressing 5 resulting in €.
+Lightning layers for the RGB_LIGHT system are not compatible with RGB_MATRIX.
+A similar feature for RGB_MATRIX is implemented in `rgb_matrix_layers.c`.
+
+Most normal modification of keycodes can be done in **keymap.c**, while adding/removing animations and setting default values is mostly done in **config.h**.
+
+ - [qmk-keycodes] lists all available keycodes. Note the modifiers keycodes like ``RALT(KC_5)`` which sends holding right alt and pressing 5 resulting in € (on a us intl layout).
  - [qmk-rgb-matrix] tells you everything you need to know about the rgb matrix system.
 
 Most modification requires flashing **both** halves and possibly resetting the internal eeprom memory. In this layout you have to switch to *Adjust* layer and press the key right of 'Esc' to flush eeprom after which you should power cycle. Remember: when flashing the slave half the keymap will be mirrored.
@@ -26,8 +35,7 @@ If special keys are needed, like for custom functions, they can be added by modi
 
 ```C
 enum custom_keycodes {
-    TEST1,
-    TEST2,
+    RESET_COLOR,
     EURO,
 };
 ```
@@ -79,18 +87,6 @@ First it defines the mapping key&harr;led (these don't have to be all leds!). Th
 
 
 
-## Links and todos for later:
-
- - OLED configuration
- - https://www.reddit.com/r/olkb/comments/lmtgxc/introducing_luna_the_qmk_keyboard_pet/
- - https://www.reddit.com/r/olkb/comments/80rk31/qmk_question_on_timer_accuracy_for_pomodoro/
- - https://www.reddit.com/r/olkb/comments/riddkw/problem_with_a_timer_on_qmk/
- - https://www.reddit.com/r/olkb/comments/fo6lo8/timed_key_press_using_qmk/
-
-
-
-
-
 [//]: # (Everything after this should not be seen... References:)
 
    [qmk-newbs]: <https://docs.qmk.fm/#/newbs>
@@ -99,5 +95,5 @@ First it defines the mapping key&harr;led (these don't have to be all leds!). Th
    [qmk-keycodes]: <https://docs.qmk.fm/#/keycodes>
    [qmk-rgb-matrix]: <https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects>
 
-   [quantum-functions]: <https://github.com/qmk/qmk_firmware/blob/master/docs/custom_quantum_functions.md>
-   [feature-layers]: <https://github.com/qmk/qmk_firmware/blob/master/docs/feature_layers.md>
+   [quantum-functions]: <https://docs.qmk.fm/#/custom_quantum_functions>
+   [feature-layers]: <https://docs.qmk.fm/#/feature_layers>
