@@ -59,9 +59,11 @@ const struct rgb_matrix_layer_atom led_layer_adjust_a[] = {
     {8+27, 4, C_AMBER_500},
     {39, 4, C_NONE},
     {16+27, 4, C_AMBER_500},
-    {47, 2, C_NONE},
+    {47, 1, C_NONE},
+    {48, 1, C_LIME_500},
     {22+27, 2, C_AMBER_500},
-    {51, 3, C_NONE},
+    {51, 2, C_NONE},
+    {53, 1, C_RED_600},
 };
 
 

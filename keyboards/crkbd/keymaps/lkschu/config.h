@@ -61,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_MATRIX_SPLIT { 27,27 }
     //required by rgb matrix indicators
 
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 210 // limit brightness, limit val is propably deprecated?
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 220 // limit brightness, limit val is propably deprecated?
     #define RGBLIGHT_HUE_STEP 4
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8
@@ -83,7 +83,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     //#define ENABLE_RGB_MATRIX_PIXEL_FRACTAL       // Single hue fractal filled keys pulsing horizontally out to edges
     //#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT    // Full gradient scrolling left to right
     //#define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT    // Static gradient left to right, speed controls how much gradient changes
-    //#define ENABLE_RGB_MATRIX_BREATHING           // Single hue brightness cycling animation
+    // NOTE: ENABLE_RGB_MATRIX_BREATHING is used by the pomodore timer
+    #define ENABLE_RGB_MATRIX_BREATHING           // Single hue brightness cycling animation
     //#define ENABLE_RGB_MATRIX_BAND_SAT        // Single hue band fading saturation scrolling left to right
     //#define ENABLE_RGB_MATRIX_ALPHAS_MODS         // Static dual hue, speed is hue for secondary hue
     //#define ENABLE_RGB_MATRIX_SPLASH

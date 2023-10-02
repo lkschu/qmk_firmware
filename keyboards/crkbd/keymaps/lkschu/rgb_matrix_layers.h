@@ -6,6 +6,10 @@
 
 #define STARTUP_HSV 0xbe,0xd1,0x99
 
+#define POMODORO_BREAK_HSV 0x55, 0xff, 0xcc
+#define POMODORO_PAUSE_HSV 0x3f, 0xf0, 0xbb
+#define POMODORO_SESSION_HSV 0x00, 0xff, 0xcc
+
 
 struct rgb_matrix_layer_atom {
     uint8_t ind_start;

@@ -32,9 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* track custom keycodes, not needed for combikeys like shift-rightalt+x since there are special keys already defined */
 enum custom_keycodes {
-    TEST1,
-    RESET_COLOR,
-    EURO,
+    RESET_COLOR = SAFE_RANGE,  // NOTE: SAFE_RANGE guarantees a unique number!
+    POMO_C,     // start/cycle pomodore mode
+    POMO_T,     // stop pomodore
+    TG_8,       // toggle layer 8 (only with shift)
 };
 
 //These also must be set for modifier keys: MO(4) -> change to L_RAISE while pressed
@@ -67,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
     KC_LGUI,RSA(KC_SCLN),RALT(KC_5),  KC_GRV, KC_MINS,  KC_EQL,                  KC_HOME,  KC_DEL,  KC_INS,  KC_END, KC_PGDN, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LCTL, XXXXXXX,  KC_SPC,     KC_ENT, TG(8), KC_LALT \
+                                          KC_LCTL, XXXXXXX,  KC_SPC,     KC_ENT, TG_8, KC_LALT \
                                       //`--------------------------'  `--------------------------'
     ),
 
@@ -79,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LGUI,  TG(8),RALT(KC_S), KC_TILD, KC_UNDS, KC_PLUS,                     KC_HOME,  KC_DEL,  KC_INS,  KC_END, KC_PGDN, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LCTL, TG(8),  KC_SPC,    KC_ENT,  XXXXXXX, KC_LALT \
+                                          KC_LCTL, TG_8,  KC_SPC,    KC_ENT,  XXXXXXX, KC_LALT \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -89,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
   RESET_COLOR, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXXX,                        KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  POMO_C,  POMO_T,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LCTL,   TG(8), XXXXXXX,   XXXXXXX,    TG(8), KC_LALT \
                                       //`--------------------------'  `--------------------------'
@@ -108,6 +109,120 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     bool rgb_matrix = false;
 #endif
 
+
+enum pomodore_modes {
+    POMO_RESET = -1,
+    POMO_SESSION = 0,
+    POMO_PAUSE = 1,
+    POMO_BREAK = 2,
+};
+const int pomodore_times[] = {25,2,15};
+enum pomodore_modes pomodore_mode = POMO_SESSION;
+const uint16_t pomodore_sessions_until_bigbreak = 2;
+uint16_t pomodore_sessions = 0;
+bool pomodore_active = false;
+bool pomodore_switch = false; // signals if we are ready to switch, so we don't constantly update leds
+uint16_t pomodore_t = 0;
+uint16_t pomodore_min = 0;
+
+
+
+void pomodore_signal(enum pomodore_modes mode) {
+    /* Signal that pomodore should switch state */
+    switch (mode) {
+        case POMO_SESSION:
+            if (pomodore_sessions % pomodore_sessions_until_bigbreak == 0) {
+                rgb_matrix_mode(RGB_MATRIX_BREATHING);
+                rgb_matrix_sethsv(POMODORO_BREAK_HSV);
+            } else {
+                rgb_matrix_mode(RGB_MATRIX_BREATHING);
+                rgb_matrix_sethsv(POMODORO_PAUSE_HSV);
+            }
+            break;
+        case POMO_PAUSE:
+        case POMO_BREAK:
+            rgb_matrix_mode(RGB_MATRIX_BREATHING);
+            rgb_matrix_sethsv(POMODORO_SESSION_HSV);
+            break;
+        case POMO_RESET:
+            rgb_matrix_mode(RGB_MATRIX_DEFAULT_MODE);
+            rgb_matrix_sethsv(STARTUP_HSV);
+            break;
+
+    }
+}
+
+
+void matrix_scan_user(void) {
+    if (pomodore_active && ! pomodore_switch) {
+        /* we count up to one minute. Timer is inacurate af so we correct here instead of at the minutes */
+        if (timer_elapsed(pomodore_t)>48000) {
+            pomodore_min++;
+            pomodore_t = timer_read();
+        }
+        if (pomodore_min > pomodore_times[pomodore_mode]) {
+            pomodore_switch = true;
+            pomodore_signal(pomodore_mode);
+        }
+    }
+}
+
+
+void pomodore_cycle(void) {
+    /* We have very limited state transitions:
+     * Off -> SESSION
+     * SESSION -> PAUSE/BREAK
+     * PAUSE/BREAK -> SESSION
+     * (SESSION/PAUSE/BREAK -> Off) <- stop function
+     *
+     * also check if we are in 'switch' state so we don't immediately start a new mode when we skip ahead
+     * */
+    if (!pomodore_active) {
+        pomodore_t = 0;
+        pomodore_min = 0;
+        pomodore_active = true;
+        pomodore_mode = POMO_SESSION;
+        pomodore_sessions++;
+        return;
+    } else if (!pomodore_switch) {
+        pomodore_switch = true;
+        pomodore_signal(pomodore_mode);
+        return;
+    }
+    if (pomodore_mode == POMO_SESSION) {
+        pomodore_t = 0;
+        pomodore_min = 0;
+        pomodore_switch = false;
+        if (pomodore_sessions % pomodore_sessions_until_bigbreak == 0) {
+            pomodore_mode = POMO_BREAK;
+        } else {
+            pomodore_mode = POMO_PAUSE;
+        }
+        pomodore_signal(POMO_RESET);
+        return;
+    }
+    if (pomodore_mode == POMO_BREAK || pomodore_mode == POMO_PAUSE) {
+        pomodore_t = 0;
+        pomodore_min = 0;
+        pomodore_switch = false;
+        pomodore_mode = POMO_SESSION;
+        pomodore_sessions++;
+        pomodore_signal(POMO_RESET);
+        return;
+    }
+}
+
+void pomodore_stop(void) {
+    if (pomodore_active) {
+        pomodore_t = 0;
+        pomodore_min = 0;
+        pomodore_active = false;
+        pomodore_switch = false;
+        pomodore_sessions = 0;
+        pomodore_signal(POMO_RESET);
+    }
+
+}
 
 void set_underglow(uint8_t min, uint8_t max) {
     // this sets underglow, ie the lower 6 leds
@@ -133,6 +248,7 @@ void keyboard_post_init_user(void) {
         return;
     }
     rgb_matrix_sethsv(STARTUP_HSV);
+    rgb_matrix_set_speed(120);
 }
 
 // layer_state_t default_layer_state_set_user(layer_state_t state) {
@@ -337,23 +453,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     /* This function gets called before the actual handling is done!
      * Return true if normal handling should continue, else return false */
     switch (keycode) {
-        case TEST1:
-            // for some reason mod1 + mod2 gets caught in this so ignore it
+        // case TEST1:
+        //     // for some reason mod1 + mod2 gets caught in this so ignore it
+        //     return false;
+        //     break;
+
+        case POMO_C:
+            if (record->event.pressed) {
+                pomodore_cycle();
+            }
             return false;
             break;
 
-        case EURO:
+        case POMO_T:
             if (record->event.pressed) {
-                SEND_STRING("str");
-            } else {
-                //on release
-                SEND_STRING("release");
+                pomodore_stop();
+            }
+            return false;
+            break;
+
+        case TG_8:
+            static bool is_shifted;
+            if (record->event.pressed) {
+                is_shifted = get_mods() & MOD_MASK_SHIFT;
+                if (is_shifted) {
+                    del_mods(MOD_MASK_SHIFT);
+                    layer_invert(L_ADJUST);
+                }
             }
             return false;
             break;
 
         case RESET_COLOR:
-            if ( ! rgb_matrix  ){
+            if ( ! rgb_matrix  ) {
                 return false;
             }
             if (record->event.pressed) {
