@@ -118,7 +118,7 @@ enum pomodore_modes {
 };
 const int pomodore_times[] = {25,2,15};
 enum pomodore_modes pomodore_mode = POMO_SESSION;
-const uint16_t pomodore_sessions_until_bigbreak = 2;
+const uint16_t pomodore_sessions_until_bigbreak = 4;
 uint16_t pomodore_sessions = 0;
 bool pomodore_active = false;
 bool pomodore_switch = false; // signals if we are ready to switch, so we don't constantly update leds
@@ -248,7 +248,8 @@ void keyboard_post_init_user(void) {
         return;
     }
     rgb_matrix_sethsv(STARTUP_HSV);
-    rgb_matrix_set_speed(120);
+    rgb_matrix_set_speed(220);
+    rgb_matrix_mode(RGB_MATRIX_DEFAULT_MODE);
 }
 
 // layer_state_t default_layer_state_set_user(layer_state_t state) {

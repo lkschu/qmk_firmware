@@ -61,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_MATRIX_SPLIT { 27,27 }
     //required by rgb matrix indicators
 
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 220 // limit brightness, limit val is propably deprecated?
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 240 // limit brightness, limit val is propably deprecated?
     #define RGBLIGHT_HUE_STEP 4
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8
