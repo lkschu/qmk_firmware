@@ -37,24 +37,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define TAPPING_FORCE_HOLD
 //#define TAPPING_TERM 100
 
-#ifdef RGBLIGHT_ENABLE
-    #undef RGBLED_SPLIT
-    #define RGBLED_SPLIT { 27,27 }
-    #define RGBLIGHT_EFFECT_BREATHING
-    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-    #define RGBLIGHT_EFFECT_SNAKE
-    #define RGBLIGHT_EFFECT_KNIGHT
-    #define RGBLIGHT_EFFECT_CHRISTMAS
-    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-    #define RGBLIGHT_EFFECT_RGB_TEST
-    #define RGBLIGHT_EFFECT_ALTERNATING
-    #define RGBLIGHT_EFFECT_TWINKLE
-    #define RGBLIGHT_LIMIT_VAL 160
-    #define RGBLIGHT_HUE_STEP 4
-    #define RGBLIGHT_SAT_STEP 8
-    #define RGBLIGHT_VAL_STEP 8
-#endif
+#define OLED_TIMEOUT 300000
+#define OLED_BRIGHTNESS 200
+#define SPLIT_WPM_ENABLE
+
 
 #ifdef RGB_MATRIX_ENABLE
     #undef RGB_MATRIX_SPLIT
