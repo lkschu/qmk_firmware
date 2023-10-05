@@ -296,7 +296,6 @@ void set_layer(uint8_t min, uint8_t max) {
 
 
 
-
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     //gets called every cycle
     if ( ! rgb_matrix) {
@@ -653,12 +652,13 @@ void oled_render_logo(void) {
     oled_write_raw_P(raw_logo, sizeof(raw_logo));
 }
 static void print_status_narrow(void) {
+    oled_clear();
     oled_set_cursor(0,1);
     oled_write("LAYER", false);
     oled_set_cursor(0,2);
     switch (get_highest_layer(layer_state)) {
         case L_BASE:
-            oled_write(PSTR("Base "), false);
+            oled_write(PSTR("Base"), false);
             break;
         case L_LOWER:
             oled_write(PSTR("Lower"), false);
@@ -670,10 +670,10 @@ static void print_status_narrow(void) {
         case L_ADJUST|L_LOWER:
         case L_ADJUST|L_RAISE:
         case L_ADJUST|L_LOWER|L_RAISE:
-            oled_write(PSTR("Adj. "), false);
+            oled_write(PSTR("Adj."), false);
             break;
         default:
-            oled_write(PSTR("Unk. "), false);
+            oled_write(PSTR("Unk."), false);
     }
     oled_set_cursor(0,5);
     oled_render_keylog();
@@ -681,7 +681,7 @@ static void print_status_narrow(void) {
     if (pomodore_active) {
         switch (pomodore_mode) {
             case POMO_SESSION:
-                oled_write("RUN  ",false);
+                oled_write("RUN",false);
                 break;
             case POMO_PAUSE:
                 oled_write("PAUSE",false);
@@ -690,20 +690,26 @@ static void print_status_narrow(void) {
                 oled_write("BREAK",false);
                 break;
             default:
-                oled_write("UNK. ",false);
+                oled_write("UNK.",false);
                 break;
         }
-    } else {
-        oled_write("     ",false);
     }
+    // else {
+    //     oled_write("     ",false);
+    // }
     oled_set_cursor(0,8);
     char pomo_str[5] = {};
-    snprintf(pomo_str, sizeof(pomo_str), "%d", pomodore_min);
     if (pomodore_active){
-        oled_write(pomo_str,false);
-    } else {
-        oled_write("     ",false);
+        if (pomodore_switch) {
+            oled_write("OVER",false);
+        } else {
+            snprintf(pomo_str, sizeof(pomo_str), "%d", pomodore_min);
+            oled_write(pomo_str,false);
+        }
     }
+    //else {
+    //    oled_write("     ",false);
+    //}
     render_luna(0, 13);
 }
 
