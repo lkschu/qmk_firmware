@@ -582,16 +582,6 @@ void render_bootmagic_status(bool status) {
 
 static void print_status_narrow(void) {
 
-#    if OLED_TIMEOUT > 0
-    /* the animation prevents the normal timeout from occuring */
-    if (last_input_activity_elapsed() >= OLED_TIMEOUT) {
-        oled_off();
-        return;
-    } else {
-        oled_on();
-    }
-#    endif
-
     oled_set_cursor(0,1);
     oled_write("LAYER", false);
     oled_set_cursor(0,2);
@@ -669,7 +659,16 @@ static void print_status_narrow(void) {
 
 
 bool oled_task_user(void) {
-    /* This function gets called when handling keystokes? */
+#    if OLED_TIMEOUT > 0
+    /* the animation prevents the normal timeout from occuring */
+    if (last_input_activity_elapsed() >= OLED_TIMEOUT) {
+        //oled_off();
+        return false;
+    } else {
+        oled_on();
+    }
+#    endif
+
     current_wpm   = get_current_wpm();
     led_usb_state = host_keyboard_led_state();
     if (is_keyboard_master()) {
