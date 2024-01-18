@@ -12,6 +12,17 @@ For general adwise on how to use this please visit [qmk-newbs].
 > qmk compile -kb crkbd -km lkschu -e CONVERT_TO=elite_pi
 > ```
 
+(https://docs.qmk.fm/#/cli_commands?id=qmk-generate-compilation-database)
+
+# Language Server Setup
+
+To generate a `compile_commands.json` use this qmk cmd:
+```bash
+qmk generate-compilation-database [-kb KEYBOARD] [-km KEYMAP]
+```
+
+
+
 
 # Modifying this keymap
 

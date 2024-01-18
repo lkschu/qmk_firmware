@@ -196,7 +196,7 @@ void pomodore_signal(enum pomodore_modes mode) {
 void matrix_scan_user(void) {
     if (pomodore_active && ! pomodore_switch) {
         /* we count up to one minute. Timer is inacurate af so we correct here instead of at the minutes */
-        if (timer_elapsed(pomodore_t)>48000) {
+        if (timer_elapsed(pomodore_t) > 48000) {
             pomodore_min++;
             pomodore_t = timer_read();
         }
@@ -385,6 +385,8 @@ uint8_t current_frame = 0;
 /* status variables */
 int   current_wpm = 0;
 led_t led_usb_state;
+
+bool oled_enabled = true;
 
 bool luna_is_sneaking = false;
 bool luna_is_jumping  = false;
@@ -659,15 +661,12 @@ static void print_status_narrow(void) {
 
 
 bool oled_task_user(void) {
-#    if OLED_TIMEOUT > 0
-    /* the animation prevents the normal timeout from occuring */
-    if (last_input_activity_elapsed() >= OLED_TIMEOUT) {
-        //oled_off();
+    if (!oled_enabled) {
+        oled_off();
         return false;
     } else {
         oled_on();
     }
-#    endif
 
     current_wpm   = get_current_wpm();
     led_usb_state = host_keyboard_led_state();
@@ -680,7 +679,18 @@ bool oled_task_user(void) {
 }
 //}}}
 
+
+void housekeeping_task_user(void){
+#    if OLED_TIMEOUT_CUSTOM > 0
+    // https://gist.github.com/drashna/79d14917f98f07e73071cbb391fcb654
+    oled_enabled = (bool)(last_input_activity_elapsed() < OLED_TIMEOUT_CUSTOM);
+#    endif
+}
+
+
 #endif // OLED_ENABLE
+
+
 
 // ------------------------[Handle keypresses]
 

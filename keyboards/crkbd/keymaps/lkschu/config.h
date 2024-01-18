@@ -37,9 +37,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define TAPPING_FORCE_HOLD
 //#define TAPPING_TERM 100
 
-#define OLED_TIMEOUT 300000
-#define OLED_BRIGHTNESS 90
+#define OLED_TIMEOUT // we handle the timeout manually!
+#define OLED_TIMEOUT_CUSTOM 300000
+#define OLED_BRIGHTNESS 70
 #define SPLIT_WPM_ENABLE
+#define SPLIT_ACTIVITY_ENABLE
 
 
 #ifdef RGB_MATRIX_ENABLE
