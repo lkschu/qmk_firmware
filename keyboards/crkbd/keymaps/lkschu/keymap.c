@@ -196,11 +196,11 @@ void pomodore_signal(enum pomodore_modes mode) {
 void matrix_scan_user(void) {
     if (pomodore_active && ! pomodore_switch) {
         /* we count up to one minute. Timer is inacurate af so we correct here instead of at the minutes */
-        if (timer_elapsed(pomodore_t) > 48000) {
+        if (timer_elapsed(pomodore_t) > 60500) {
             pomodore_min++;
             pomodore_t = timer_read();
         }
-        if (pomodore_min > pomodore_times[pomodore_mode]) {
+        if (pomodore_min >= pomodore_times[pomodore_mode]) {
             pomodore_switch = true;
             pomodore_signal(pomodore_mode);
         }
@@ -681,10 +681,8 @@ bool oled_task_user(void) {
 
 
 void housekeeping_task_user(void){
-#    if OLED_TIMEOUT_CUSTOM > 0
     // https://gist.github.com/drashna/79d14917f98f07e73071cbb391fcb654
     oled_enabled = (bool)(last_input_activity_elapsed() < OLED_TIMEOUT_CUSTOM);
-#    endif
 }
 
 
@@ -697,6 +695,8 @@ void housekeeping_task_user(void){
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     /* This function gets called before the actual handling is done!
      * Return true if normal handling should continue, else return false */
+    // WARN: hack:
+    oled_enabled = true;
     switch (keycode) {
         // case TEST1:
         //     // for some reason mod1 + mod2 gets caught in this so ignore it

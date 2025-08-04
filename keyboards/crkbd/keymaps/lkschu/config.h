@@ -90,7 +90,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_MATRIX_DEFAULT_HUE 165
     #define RGB_MATRIX_DEFAULT_SAT 85
     #define RGB_MATRIX_DEFAULT_VAL 80
-    #define RGB_MATRIX_DEFAULT_SPD 90      //120 = blue/violet at hsv(95,160,4
+    #define RGB_MATRIX_DEFAULT_SPD 70      //120 = blue/violet at hsv(95,160,4
 
     // custom constants:
     #define ENABLE_UNDERGLOW
