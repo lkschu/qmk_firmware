@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_matrix_layers.h"
 #include "oled_bg_image.h"
 
+#define RGBLED_NUM 54
+
 
 #ifdef RGBLIGHT_ENABLE
     //Following line allows macro to read current RGB settings
@@ -37,12 +39,16 @@ enum custom_keycodes {
     POMO_C,     // start/cycle pomodore mode
     POMO_T,     // stop pomodore
     TG_8,       // toggle layer 8 (only with shift)
+    TG_ALT_LAYOUT,       // toggle alternative layouts
 };
 
 //These also must be set for modifier keys: MO(4) -> change to L_RAISE while pressed
 #define L_BASE 0
-#define L_LOWER 2
-#define L_RAISE 4
+#define L_ALTERNATIVE 1
+#define L_LOWER 4
+#define L_LOWER_ALT 5
+#define L_RAISE 6
+#define L_RAISE_ALT 7
 #define L_ADJUST 8
 
 
@@ -86,7 +92,7 @@ uint8_t random_u8(uint8_t max) {
 
 
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+const uint16_t PROGMEM keymaps [][MATRIX_ROWS][MATRIX_COLS] = {
   [L_BASE] = LAYOUT_split_3x6_3( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,\
@@ -95,9 +101,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LGUI,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LCTL,   MO(2),  KC_SPC,     KC_ENT,   MO(4),  KC_LALT \
+                                          KC_LCTL,   MO(L_LOWER),  KC_SPC,     KC_ENT,   MO(L_RAISE),  KC_LALT \
                                       //`--------------------------'  `--------------------------'
+  ),
 
+  [L_ALTERNATIVE] = LAYOUT_split_3x6_3( \
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       KC_ESC,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,  KC_BSPC,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LSFT,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I, KC_O   , KC_RSFT,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LGUI,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, KC_QUOT,\
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                      KC_LCTL,MO(L_LOWER_ALT), KC_SPC,  KC_ENT,MO(L_RAISE_ALT),KC_LALT \
+                                      //`--------------------------'  `--------------------------'
   ),
 
   [L_LOWER] = LAYOUT_split_3x6_3( \
@@ -107,6 +124,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LSFT,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_PGUP, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
     KC_LGUI,RSA(KC_SCLN),RALT(KC_5),  KC_GRV, KC_MINS,  KC_EQL,                  KC_HOME,  KC_DEL,  KC_INS,  KC_END, KC_PGDN, KC_QUOT,\
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          KC_LCTL, XXXXXXX,  KC_SPC,     KC_ENT, TG_8, KC_LALT \
+                                      //`--------------------------'  `--------------------------'
+    ),
+  [L_LOWER_ALT] = LAYOUT_split_3x6_3( \
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       KC_TAB,RALT(KC_S),KC_EXLM,  KC_AT, KC_HASH, KC_PLUS,                      KC_MINS,    KC_1, KC_2   , KC_3   , KC_BSLS, KC_DEL,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LSFT,RALT(KC_5), KC_DLR,KC_PERC, KC_CIRC, KC_UNDS,                      XXXXXXX, KC_4   ,   KC_5 ,KC_6    , KC_0   , KC_RSFT,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+    KC_LGUI,   KC_TILD, KC_AMPR, KC_ASTR, XXXXXXX, XXXXXXX,                       KC_EQL,  KC_7  ,  KC_8  ,  KC_9  , KC_PIPE, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LCTL, XXXXXXX,  KC_SPC,     KC_ENT, TG_8, KC_LALT \
                                       //`--------------------------'  `--------------------------'
@@ -124,18 +152,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
+  [L_RAISE_ALT] = LAYOUT_split_3x6_3( \
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       KC_TAB, XXXXXXX, KC_MRWD, KC_MFFD, KC_MPLY, KC_LCBR,                      KC_RCBR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LSFT, KC_CIRC, XXXXXXX, KC_QUOT, KC_DQUO, KC_LPRN,                      KC_RPRN, KC_LEFT, KC_DOWN,KC_UP   ,KC_RIGHT, KC_RSFT,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LGUI, XXXXXXX, KC_VOLD, KC_VOLU, XXXXXXX, KC_LBRC,                      KC_RBRC, KC_HOME, KC_DOWN, KC_PGUP, KC_END , XXXXXXX,\
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          KC_LCTL, TG_8,  KC_SPC,    KC_ENT,  XXXXXXX, KC_LALT \
+                                      //`--------------------------'  `--------------------------'
+  ),
+
   [L_ADJUST] = LAYOUT_split_3x6_3( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
      RGB_TOG, QK_CLEAR_EEPROM,RGB_RMOD,RGB_MOD,XXXXXXX,XXXXXXX,                    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
   RESET_COLOR, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXXX,                        KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  POMO_C,  POMO_T,\
+TG_ALT_LAYOUT,RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,  QK_BOOT,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  POMO_C,  POMO_T,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LCTL,   TG(8), XXXXXXX,   XXXXXXX,    TG(8), KC_LALT \
                                       //`--------------------------'  `--------------------------'
   )
 };
+
+
+
+void cycle_alternative_layouts(void) {
+    layer_invert(L_ALTERNATIVE);
+    // layer_xor(L_LOWER_ALT);
+    // layer_xor(L_RAISE_ALT);
+    return;
+}
+
+
+
 
 #ifdef ENABLE_UNDERGLOW
     bool underglowon = true;
@@ -270,14 +322,15 @@ void set_underglow(uint8_t min, uint8_t max) {
         return;
     }
     if ( underglowon ) {
-        // rgb value
-        uint8_t r = 10; uint8_t g = 15; uint8_t b = 10;
-        // loop over all leds, check if flag is set to underglow, and set color
-        for (uint8_t i = min; i < RGBLED_NUM && i < max; i++) {
-            if (HAS_FLAGS(g_led_config.flags[i], 0x02)) { // 0x02 == LED_FLAG_Underglow
-                rgb_matrix_set_color(i, r, g, b);
-            }
-        }
+        return;
+        // INFO: deprecated: Just handle indicators by using the per-layer rgb matrix
+        // uint8_t r = 130; uint8_t g = 20; uint8_t b = 50;
+        // // loop over all leds, check if flag is set to underglow, and set color
+        // for (uint8_t i = min; i < RGBLED_NUM && i < max; i++) {
+        //     if (HAS_FLAGS(g_led_config.flags[i], 0x02)) { // 0x02 == LED_FLAG_Underglow
+        //         rgb_matrix_set_color(i, r, g, b);
+        //     }
+        // }
     }
 }
 
@@ -336,16 +389,25 @@ void set_layer(uint8_t min, uint8_t max) {
     }
     switch (get_highest_layer(layer_state)) {
         case L_BASE:
-            activate_rgb_lightning_layer(0,min, max); // 1 := L_BASE
+            activate_rgb_lightning_layer(0,min, max); // 0 := L_BASE
+            break;
+        case L_ALTERNATIVE:
+            activate_rgb_lightning_layer(1,min, max); // 0 := L_BASE
             break;
         case L_LOWER:
-            activate_rgb_lightning_layer(1,min, max); // 1 := L_LOWER
+            activate_rgb_lightning_layer(2,min, max); // 1 := L_LOWER
+            break;
+        case L_LOWER_ALT:
+            activate_rgb_lightning_layer(3,min, max); // 1 := L_LOWER
             break;
         case L_RAISE:
-            activate_rgb_lightning_layer(2,min, max); // 2 := L_RAISE
+            activate_rgb_lightning_layer(4,min, max); // 2 := L_RAISE
+            break;
+        case L_RAISE_ALT:
+            activate_rgb_lightning_layer(5,min, max); // 2 := L_RAISE
             break;
         case L_ADJUST:
-            activate_rgb_lightning_layer(3,min, max); // 3 := L_ADJUST
+            activate_rgb_lightning_layer(6,min, max); // 3 := L_ADJUST
             break;
     }
 }
@@ -507,31 +569,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 
 
-
-
-void oled_render_layer_state(void) {
-    oled_write_P(PSTR("Layer: "), false);
-    switch (get_highest_layer(layer_state)) {
-        case L_BASE:
-            oled_write_ln_P(PSTR("Default"), false);
-            break;
-        case L_LOWER:
-            oled_write_ln_P(PSTR("Lower"), false);
-            break;
-        case L_RAISE:
-            oled_write_ln_P(PSTR("Raise"), false);
-            break;
-        case L_ADJUST:
-        case L_ADJUST|L_LOWER:
-        case L_ADJUST|L_RAISE:
-        case L_ADJUST|L_LOWER|L_RAISE:
-            oled_write_ln_P(PSTR("Adjust"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("Unknown"), false);
-    }
-}
-
 char keylog_str[24] = {};
 
 const char code_to_name[60] = {
@@ -593,16 +630,25 @@ static void print_status_narrow(void) {
         case L_BASE:
             oled_write(PSTR("Base"), false);
             break;
+        case L_ALTERNATIVE:
+            oled_write(PSTR("ColDH"), false);
+            break;
         case L_LOWER:
             oled_write(PSTR("Lower"), false);
+            break;
+        case L_LOWER_ALT:
+            oled_write(PSTR("LoALT"), false);
             break;
         case L_RAISE:
             oled_write(PSTR("Raise"), false);
             break;
+        case L_RAISE_ALT:
+            oled_write(PSTR("RaALT"), false);
+            break;
         case L_ADJUST:
-        case L_ADJUST|L_LOWER:
-        case L_ADJUST|L_RAISE:
-        case L_ADJUST|L_LOWER|L_RAISE:
+        // case L_ADJUST|L_LOWER:
+        // case L_ADJUST|L_RAISE:
+        // case L_ADJUST|L_LOWER|L_RAISE:
             oled_write(PSTR("Adj."), false);
             break;
         default:
@@ -697,11 +743,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
      * Return true if normal handling should continue, else return false */
     // WARN: hack:
     oled_enabled = true;
+
+
+    bool is_shifted;
     switch (keycode) {
         // case TEST1:
         //     // for some reason mod1 + mod2 gets caught in this so ignore it
         //     return false;
         //     break;
+
+        case TG_ALT_LAYOUT:
+            if (record->event.pressed) {
+                cycle_alternative_layouts();
+            }
+            return false;
+            break;
 
         case POMO_C:
             if (record->event.pressed) {
@@ -718,7 +774,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case TG_8:
-            static bool is_shifted;
             if (record->event.pressed) {
                 is_shifted = get_mods() & MOD_MASK_SHIFT;
                 if (is_shifted) {

@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_MATRIX_SPLIT { 27,27 }
     //required by rgb matrix indicators
 
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 240 // limit brightness, limit val is propably deprecated?
+    // #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 240 // limit brightness, limit val is propably deprecated?
     #define RGBLIGHT_HUE_STEP 4
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8
@@ -87,13 +87,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     // - cyan rgb(15,40,40) = hsv(138,160,40)
     // - mint rgb(15,40,25) = hsv(95,160,40)
     // - violet rgb(
-    #define RGB_MATRIX_DEFAULT_HUE 165
+    // #define RGB_MATRIX_DEFAULT_HUE 165
+    // -- red-ish
+    #define RGB_MATRIX_DEFAULT_HUE 243
     #define RGB_MATRIX_DEFAULT_SAT 85
     #define RGB_MATRIX_DEFAULT_VAL 80
     #define RGB_MATRIX_DEFAULT_SPD 70      //120 = blue/violet at hsv(95,160,4
 
     // custom constants:
     #define ENABLE_UNDERGLOW
+
+    // sync color across splits!
+    #define SPLIT_TRANSPORT_MIRROR
+    #define SPLIT_LAYER_STATE_ENABLE
+    #define SPLIT_MODS_ENABLE
 
 #endif
 
