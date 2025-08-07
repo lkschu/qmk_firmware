@@ -11,4 +11,5 @@ LTO_ENABLE      = no  # link time optimization => smaller hex file
 
 
 SRC += rgb_matrix_layers.c \
-	   oled_bg_image.c
+	   oled_bg_image.c \
+	   luna.c
