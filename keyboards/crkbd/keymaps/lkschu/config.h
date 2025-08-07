@@ -105,6 +105,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
+
+
+#define STARTUP_HSV 0xbe,0xd1,0x99
+
+
+
+
+
+
 //// incompatible with lto (link time opti), disabled to save space
 //// see: https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 ////#define NO_ACTION_MACRO

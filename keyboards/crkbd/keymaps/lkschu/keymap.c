@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_matrix_layers.h"
 #include "oled_bg_image.h"
 #include "luna.h"
+#include "pomodore.h"
+#include "config.h"
 
 #define RGBLED_NUM 54
 
@@ -201,118 +203,41 @@ void cycle_alternative_layouts(void) {
 #endif
 
 
-enum pomodore_modes {
-    POMO_RESET = -1,
-    POMO_SESSION = 0,
-    POMO_PAUSE = 1,
-    POMO_BREAK = 2,
+
+
+struct pomodore_instance pomo = {
+    .sessions_until_bigbreak = 4,
+    .mode = POMO_SESSION,
+    .sessions = 0,
+    .active = false,
+    .switch_session = false,
+    .t = 0,
+    .min = 0,
+    .times = {25,2,15}
+    // .time_session = 25,
+    // .time_break_small = 2,
+    // .time_break_big = 15
 };
-const int pomodore_times[] = {25,2,15};
-enum pomodore_modes pomodore_mode = POMO_SESSION;
-const uint16_t pomodore_sessions_until_bigbreak = 4;
-uint16_t pomodore_sessions = 0;
-bool pomodore_active = false;
-bool pomodore_switch = false; // signals if we are ready to switch, so we don't constantly update leds
-uint16_t pomodore_t = 0;
-uint16_t pomodore_min = 0;
 
 
-void pomodore_signal(enum pomodore_modes mode) {
-    /* Signal that pomodore should switch state */
-    switch (mode) {
-        case POMO_SESSION:
-            if (pomodore_sessions % pomodore_sessions_until_bigbreak == 0) {
-                rgb_matrix_mode(RGB_MATRIX_BREATHING);
-                rgb_matrix_sethsv(POMODORO_BREAK_HSV);
-            } else {
-                rgb_matrix_mode(RGB_MATRIX_BREATHING);
-                rgb_matrix_sethsv(POMODORO_PAUSE_HSV);
-            }
-            break;
-        case POMO_PAUSE:
-        case POMO_BREAK:
-            rgb_matrix_mode(RGB_MATRIX_BREATHING);
-            rgb_matrix_sethsv(POMODORO_SESSION_HSV);
-            break;
-        case POMO_RESET:
-            rgb_matrix_mode(RGB_MATRIX_DEFAULT_MODE);
-            rgb_matrix_sethsv(STARTUP_HSV);
-            break;
-
-    }
-}
 
 
 void matrix_scan_user(void) {
-    if (pomodore_active && ! pomodore_switch) {
+    if (pomo.active && ! pomo.switch_session) {
         /* we count up to one minute. Timer is inacurate af so we correct here instead of at the minutes */
-        if (timer_elapsed(pomodore_t) > 60500) {
-            pomodore_min++;
-            pomodore_t = timer_read();
+        if (timer_elapsed32(pomo.t) > 60500) {
+            pomo.min++;
+            pomo.t = timer_read32();
         }
-        if (pomodore_min >= pomodore_times[pomodore_mode]) {
-            pomodore_switch = true;
-            pomodore_signal(pomodore_mode);
+        if (pomo.min >= pomo.times[pomo.mode]) {
+            pomo.switch_session = true;
+            pomodore_signal(&pomo, pomo.mode);
         }
     }
 }
 
 
-void pomodore_cycle(void) {
-    /* We have very limited state transitions:
-     * Off -> SESSION
-     * SESSION -> PAUSE/BREAK
-     * PAUSE/BREAK -> SESSION
-     * (SESSION/PAUSE/BREAK -> Off) <- stop function
-     *
-     * also check if we are in 'switch' state so we don't immediately start a new mode when we skip ahead
-     * */
-    if (!pomodore_active) {
-        pomodore_t = 0;
-        pomodore_min = 0;
-        pomodore_active = true;
-        pomodore_mode = POMO_SESSION;
-        pomodore_sessions++;
-        return;
-    } else if (!pomodore_switch) {
-        pomodore_switch = true;
-        pomodore_signal(pomodore_mode);
-        return;
-    }
-    if (pomodore_mode == POMO_SESSION) {
-        pomodore_t = 0;
-        pomodore_min = 0;
-        pomodore_switch = false;
-        if (pomodore_sessions % pomodore_sessions_until_bigbreak == 0) {
-            pomodore_mode = POMO_BREAK;
-        } else {
-            pomodore_mode = POMO_PAUSE;
-        }
-        pomodore_signal(POMO_RESET);
-        return;
-    }
-    if (pomodore_mode == POMO_BREAK || pomodore_mode == POMO_PAUSE) {
-        pomodore_t = 0;
-        pomodore_min = 0;
-        pomodore_switch = false;
-        pomodore_mode = POMO_SESSION;
-        pomodore_sessions++;
-        pomodore_signal(POMO_RESET);
-        return;
-    }
-}
 
-void pomodore_stop(void) {
-    if (pomodore_active) {
-        pomodore_t = 0;
-        pomodore_min = 0;
-        pomodore_active = false;
-        pomodore_switch = false;
-        pomodore_sessions = 0;
-        pomodore_signal(POMO_RESET);
-    }
-
-}
 
 void set_underglow(uint8_t min, uint8_t max) {
     // this sets underglow, ie the lower 6 leds
@@ -504,10 +429,10 @@ static void print_status_narrow(void) {
     oled_set_cursor(0,5);
     oled_render_keylog();
     oled_set_cursor(0,7);
-    if (pomodore_active) {
+    if (pomo.active) {
         oled_write(PSTR("     "), false);
         oled_set_cursor(0,7);
-        switch (pomodore_mode) {
+        switch (pomo.mode) {
             case POMO_SESSION:
                 oled_write("RUN",false);
                 break;
@@ -526,14 +451,14 @@ static void print_status_narrow(void) {
     }
     oled_set_cursor(0,8);
     char pomo_str[5] = {};
-    if (pomodore_active){
-        if (pomodore_switch) {
+    if (pomo.active){
+        if (pomo.switch_session) {
             oled_write("OVER",false);
         } else {
             //oled_write("     ",false);
             oled_set_cursor(0,8);
             volatile int p_size = sizeof(pomo_str);
-            snprintf(pomo_str, p_size, "%-5.0d", pomodore_min);
+            snprintf(pomo_str, p_size, "%-5.0d", pomo.min);
             oled_write(pomo_str,false);
         }
     } else {
@@ -590,14 +515,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case POMO_C:
             if (record->event.pressed) {
-                pomodore_cycle();
+                pomodore_cycle(&pomo);
             }
             return false;
             break;
 
         case POMO_T:
             if (record->event.pressed) {
-                pomodore_stop();
+                pomodore_stop(&pomo);
             }
             return false;
             break;
