@@ -40,14 +40,15 @@ void pomodore_signal(struct pomodore_instance *ins, enum pomodore_modes mode) {
 
 
 void pomodore_stop(struct pomodore_instance *ins) {
-    if (ins->active) {
-        ins->t = 0;
-        ins->min = 0;
-        ins->active = false;
-        ins->switch_session = false;
-        ins->sessions = 0;
-        pomodore_signal(ins, POMO_RESET);
-    }
+    // if (ins->active) {
+    ins->mode = POMO_SESSION;
+    ins->sessions = 0;
+    ins->active = false;
+    ins->switch_session = false;
+    ins->t = 0;
+    ins->min = 0;
+    pomodore_signal(ins, POMO_RESET);
+    // }
 
 }
 
@@ -62,11 +63,11 @@ void pomodore_cycle(struct pomodore_instance *ins) {
      * also check if we are in 'switch' state so we don't immediately start a new mode when we skip ahead
      * */
     if (!ins->active) {
-        ins->t = 0;
-        ins->min = 0;
-        ins->active = true;
         ins->mode = POMO_SESSION;
         ins->sessions++;
+        ins->active = true;
+        ins->t = 0;
+        ins->min = 0;
         return;
     } else if (!ins->switch_session) {
         ins->switch_session = true;

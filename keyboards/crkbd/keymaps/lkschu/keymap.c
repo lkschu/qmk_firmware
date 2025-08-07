@@ -452,7 +452,10 @@ static void print_status_narrow(void) {
             //oled_write("     ",false);
             oled_set_cursor(0,8);
             volatile int p_size = sizeof(pomo_str);
-            snprintf(pomo_str, p_size, "%-5.0d", pomo.min);
+            // snprintf(pomo_str, p_size, "%-5.0d", pomo.min);
+            oled_write("     ",false);
+            oled_set_cursor(0,8);
+            snprintf(pomo_str, p_size, "%ldM", pomo.min);
             oled_write(pomo_str,false);
         }
     } else {

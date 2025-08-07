@@ -22,8 +22,8 @@ struct pomodore_instance {
     uint16_t sessions;
     bool active;
     bool switch_session; // signals if we are ready to switch, so we don't constantly update leds
-    uint16_t t;
-    uint16_t min;
+    uint32_t t;
+    uint32_t min;
     const int times[]; // array so we can use the index from the pomodore_modes
 };
 

@@ -58,6 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_MATRIX_LED_FLUSH_LIMIT 8 // default: 16ms ~= 60hz
     #define RGB_MATRIX_KEYPRESSES
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+    #define RGB_MATRIX_SLEEP
     #define RGBLIGHT_SLEEP
     #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
     #define RGB_DISABLE_TIMEOUT 600000    // in ms -> 600000ms ~= 10min
