@@ -12,18 +12,6 @@
 #define POMODORO_SESSION_HSV 0x00, 0xff, 0xf0
 
 
-
-
-// const int pomodore_times[] = {25,2,15};
-// enum pomodore_modes pomodore_mode = POMO_SESSION;
-// const uint16_t pomodore_sessions_until_bigbreak = 4;
-// uint16_t pomodore_sessions = 0;
-// bool pomodore_active = false;
-// bool pomodore_switch = false; // signals if we are ready to switch, so we don't constantly update leds
-// uint16_t pomodore_t = 0;
-// uint16_t pomodore_min = 0;
-
-
 void pomodore_signal(struct pomodore_instance *ins, enum pomodore_modes mode) {
     /* Signal that pomodore should switch state */
     switch (mode) {

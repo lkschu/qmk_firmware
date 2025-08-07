@@ -214,11 +214,7 @@ struct pomodore_instance pomo = {
     .t = 0,
     .min = 0,
     .times = {25,2,15}
-    // .time_session = 25,
-    // .time_break_small = 2,
-    // .time_break_big = 15
 };
-
 
 
 
@@ -235,7 +231,6 @@ void matrix_scan_user(void) {
         }
     }
 }
-
 
 
 
@@ -262,7 +257,6 @@ uint32_t startup_time = 0;
 
 
 struct luna luna = { .is_jumping = false, .is_sneaking = false, ._anim_timer=0, ._current_frame=0, ._showed_jump=false, ._current_wpm=0 };
-
 
 
 void keyboard_post_init_user(void) {
@@ -296,25 +290,25 @@ void set_layer(uint8_t min, uint8_t max) {
     }
     switch (get_highest_layer(layer_state)) {
         case L_BASE:
-            activate_rgb_lightning_layer(0,min, max); // 0 := L_BASE
+            activate_rgb_lightning_layer(0,min, max);
             break;
         case L_ALTERNATIVE:
-            activate_rgb_lightning_layer(1,min, max); // 0 := L_BASE
+            activate_rgb_lightning_layer(1,min, max);
             break;
         case L_LOWER:
-            activate_rgb_lightning_layer(2,min, max); // 1 := L_LOWER
+            activate_rgb_lightning_layer(2,min, max);
             break;
         case L_LOWER_ALT:
-            activate_rgb_lightning_layer(3,min, max); // 1 := L_LOWER
+            activate_rgb_lightning_layer(3,min, max);
             break;
         case L_RAISE:
-            activate_rgb_lightning_layer(4,min, max); // 2 := L_RAISE
+            activate_rgb_lightning_layer(4,min, max);
             break;
         case L_RAISE_ALT:
-            activate_rgb_lightning_layer(5,min, max); // 2 := L_RAISE
+            activate_rgb_lightning_layer(5,min, max);
             break;
         case L_ADJUST:
-            activate_rgb_lightning_layer(6,min, max); // 3 := L_ADJUST
+            activate_rgb_lightning_layer(6,min, max);
             break;
     }
 }
@@ -496,7 +490,6 @@ void housekeeping_task_user(void){
 
 
 
-// ------------------------[Handle keypresses]
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     /* This function gets called before the actual handling is done!
      * Return true if normal handling should continue, else return false */
@@ -575,5 +568,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
 }
-
 
