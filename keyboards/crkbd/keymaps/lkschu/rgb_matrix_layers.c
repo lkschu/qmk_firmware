@@ -108,20 +108,27 @@ struct rgb_matrix_layer_atom from_rgb_color(uint8_t start, uint8_t amount, rgb_c
     //     hsv.h -= 360.0;
     // }
     // RGB_base rgb_shifted = hsv_to_hexrgb(hsv);
-    RGB_base rgb_shifted;
-    rgb_shifted.r = rgb.red;
-    rgb_shifted.g = rgb.green;
-    rgb_shifted.b = rgb.blue;
 
     if (start <=26) {
-        rgb_shifted.b = (uint8_t) ( ((double) rgb_shifted.b) * 0.60);
+        rgb.blue = (uint8_t) ( ((double) rgb.blue) * 0.60);
     } else {
-        double new_blue = ((double) rgb_shifted.b) * 1.40;
+        double new_blue = ((double) rgb.blue) * 1.40;
         if (new_blue > 255.0) {
             new_blue = 255.0;
         }
-        rgb_shifted.b = (uint8_t) new_blue;
+        rgb.blue = (uint8_t) new_blue;
     }
+
+    HSV_base hsv = hexrgb_to_hsv(rgb);
+
+    if (start <= 26) {
+        hsv.v = hsv.v * 0.5;
+        if (hsv.v > 1.0) {
+            hsv.v = 1.0;
+        }
+    }
+
+    RGB_base rgb_shifted = hsv_to_hexrgb(hsv);
 
     struct rgb_matrix_layer_atom return_value = { start, amount, rgb_shifted.r, rgb_shifted.g, rgb_shifted.b };
     return return_value;
