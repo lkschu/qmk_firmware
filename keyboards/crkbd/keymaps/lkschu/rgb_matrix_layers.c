@@ -26,9 +26,9 @@ typedef struct {
 } HSV_base;
 
 typedef struct {
-    int r; // 0 - 255
-    int g; // 0 - 255
-    int b; // 0 - 255
+    uint8_t r; // 0 - 255
+    uint8_t g; // 0 - 255
+    uint8_t b; // 0 - 255
 } RGB_base;
 
 HSV_base hexrgb_to_hsv(rgb_color rgb) {
@@ -93,26 +93,39 @@ RGB_base hsv_to_hexrgb(HSV_base hsv) {
 
 
 struct rgb_matrix_layer_atom from_rgb_color(uint8_t start, uint8_t amount, rgb_color rgb ) {
-    HSV_base hsv = hexrgb_to_hsv(rgb);
-    // Those led just don't have the same color intensities, i just can't fix this with a hue shift! :(
-    if (start <= 6) {
-        hsv.h = (hsv.h - 1.0);
-    } else if (start <= 26) {
-        hsv.h = (hsv.h + 1.0);
+    // HSV_base hsv = hexrgb_to_hsv(rgb);
+    // // Those led just don't have the same color intensities, i just can't fix this with a hue shift! :(
+    // if (start <= 6) {
+    //     hsv.h = (hsv.h - 1.0);
+    // } else if (start <= 26) {
+    //     hsv.h = (hsv.h + 1.0);
+    // }
+
+    // if (hsv.h < 0.0) {
+    //     hsv.h += 360.0;
+    // }
+    // if (hsv.h > 360.0) {
+    //     hsv.h -= 360.0;
+    // }
+    // RGB_base rgb_shifted = hsv_to_hexrgb(hsv);
+    RGB_base rgb_shifted;
+    rgb_shifted.r = rgb.red;
+    rgb_shifted.g = rgb.green;
+    rgb_shifted.b = rgb.blue;
+
+    if (start <=26) {
+        rgb_shifted.b = (uint8_t) ( ((double) rgb_shifted.b) * 0.60);
+    } else {
+        double new_blue = ((double) rgb_shifted.b) * 1.40;
+        if (new_blue > 255.0) {
+            new_blue = 255.0;
+        }
+        rgb_shifted.b = (uint8_t) new_blue;
     }
 
-    if (hsv.h < 0.0) {
-        hsv.h += 360.0;
-    }
-    if (hsv.h > 360.0) {
-        hsv.h -= 360.0;
-    }
-    RGB_base rgb_shifted = hsv_to_hexrgb(hsv);
     struct rgb_matrix_layer_atom return_value = { start, amount, rgb_shifted.r, rgb_shifted.g, rgb_shifted.b };
     return return_value;
 }
-
-
 
 
 
@@ -203,14 +216,14 @@ void init_matrix_rgb_layers(void) {
     led_layer_raise_a[0] = from_rgb_color(0, 6,         C_CYAN_30C);        //underglow
     led_layer_raise_a[1] = from_rgb_color(6, 1,         C_INDIGO_30F);      //alphas
     led_layer_raise_a[3] = from_rgb_color(13, 1,        C_INDIGO_30F);      //alphas
-    led_layer_raise_a[2] = from_rgb_color(7, 6,         C_INDIGO_30E);      // normal keys
-    led_layer_raise_a[4] = from_rgb_color(14, 13,       C_INDIGO_30E);    // normal keys
+    led_layer_raise_a[2] = from_rgb_color(7, 6,         C_EMERALD_30D);     // normal keys
+    led_layer_raise_a[4] = from_rgb_color(14, 13,       C_EMERALD_30D);     // normal keys
 
     led_layer_raise_a[5] = from_rgb_color(0+27, 6,      C_CYAN_30C);
     led_layer_raise_a[6] = from_rgb_color(6+27, 1,      C_INDIGO_30F);
     led_layer_raise_a[8] = from_rgb_color(13+27, 1,     C_INDIGO_30F);
-    led_layer_raise_a[7] = from_rgb_color(7+27, 6,      C_INDIGO_30E);      // normal keys
-    led_layer_raise_a[9] = from_rgb_color(14+27, 13,    C_INDIGO_30E);    // normal keys
+    led_layer_raise_a[7] = from_rgb_color(7+27, 6,      C_EMERALD_30D);      // normal keys
+    led_layer_raise_a[9] = from_rgb_color(14+27, 13,    C_EMERALD_30D);    // normal keys
     led_layer_raise.atoms = led_layer_raise_a;
     led_layer_raise.len = 10;
 
@@ -218,14 +231,14 @@ void init_matrix_rgb_layers(void) {
     led_layer_raise_alt_a[0] = from_rgb_color(0, 6,         C_ROSE_30C);        //underglow
     led_layer_raise_alt_a[1] = from_rgb_color(6, 1,         C_INDIGO_30F);      //alphas
     led_layer_raise_alt_a[3] = from_rgb_color(13, 1,        C_INDIGO_30F);      //alphas
-    led_layer_raise_alt_a[2] = from_rgb_color(7, 6,         C_INDIGO_30E);      // normal keys
-    led_layer_raise_alt_a[4] = from_rgb_color(14, 13,       C_INDIGO_30E);    // normal keys
+    led_layer_raise_alt_a[2] = from_rgb_color(7, 6,         C_INDIGO_30D);      // normal keys
+    led_layer_raise_alt_a[4] = from_rgb_color(14, 13,       C_INDIGO_30D);    // normal keys
 
     led_layer_raise_alt_a[5] = from_rgb_color(0+27, 6,      C_ROSE_30C);
     led_layer_raise_alt_a[6] = from_rgb_color(6+27, 1,      C_INDIGO_30F);
     led_layer_raise_alt_a[8] = from_rgb_color(13+27, 1,     C_INDIGO_30F);
-    led_layer_raise_alt_a[7] = from_rgb_color(7+27, 6,      C_INDIGO_30E);      // normal keys
-    led_layer_raise_alt_a[9] = from_rgb_color(14+27, 13,    C_INDIGO_30E);    // normal keys
+    led_layer_raise_alt_a[7] = from_rgb_color(7+27, 6,      C_INDIGO_30D);      // normal keys
+    led_layer_raise_alt_a[9] = from_rgb_color(14+27, 13,    C_INDIGO_30D);    // normal keys
     led_layer_raise_alt.atoms = led_layer_raise_alt_a;
     led_layer_raise_alt.len = 10;
 
