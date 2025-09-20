@@ -266,6 +266,8 @@ void keyboard_post_init_user(void) {
     }
     uint32_t start = timer_read32();
 
+    init_matrix_rgb_layers();
+
     rgb_matrix_sethsv(STARTUP_HSV);
     rgb_matrix_set_speed(220);
     rgb_matrix_mode(RGB_MATRIX_DEFAULT_MODE);

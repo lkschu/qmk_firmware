@@ -228,13 +228,17 @@ for k,color in all_colors.items():
 
 # print(new_colors)
 
+print("#include <stdint.h>")
+print("typedef struct {uint8_t red; uint8_t green; uint8_t blue;} rgb_color;")
+
 last_key = ""
 for k,v in new_colors.items():
     if k[:6] != last_key[:6]:
         print("")
     # print(v)
     r,g,b = map(lambda x: int(x*256), v)
-    print(f"#define {k:<16} 0x{r:02X},0x{g:02X},0x{b:02X}   // #{r:02X}{g:02X}{b:02X}")
+    # print(f"#define {k:<16} 0x{r:02X},0x{g:02X},0x{b:02X}   // #{r:02X}{g:02X}{b:02X}")
+    print(f"const rgb_color {k:<16} = {{ 0x{r:02X},0x{g:02X},0x{b:02X} }};  // #{r:02X}{g:02X}{b:02X}")
     last_key = k
 
 

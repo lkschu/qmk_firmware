@@ -1,470 +1,472 @@
+#include <stdint.h>
+typedef struct {uint8_t red; uint8_t green; uint8_t blue;} rgb_color;
 
-#define C_NONE           0x00,0x00,0x00   // #000000
+const rgb_color C_NONE           = { 0x00,0x00,0x00 };  // #000000
 
-#define C_RED_BASE       0xF8,0x71,0x71   // #F87171
-#define C_RED_10A        0x11,0x10,0x10   // #111010
-#define C_RED_10B        0x28,0x24,0x24   // #282424
-#define C_RED_10C        0x47,0x40,0x40   // #474040
-#define C_RED_10D        0x70,0x65,0x65   // #706565
-#define C_RED_10E        0xA3,0x93,0x93   // #A39393
-#define C_RED_10F        0xE6,0xCF,0xCF   // #E6CFCF
-#define C_RED_20A        0x11,0x0C,0x0C   // #110C0C
-#define C_RED_20B        0x28,0x1C,0x1C   // #281C1C
-#define C_RED_20C        0x47,0x32,0x32   // #473232
-#define C_RED_20D        0x70,0x4E,0x4E   // #704E4E
-#define C_RED_20E        0xA3,0x72,0x72   // #A37272
-#define C_RED_20F        0xE6,0xA1,0xA1   // #E6A1A1
-#define C_RED_30A        0x11,0x05,0x05   // #110505
-#define C_RED_30B        0x28,0x0C,0x0C   // #280C0C
-#define C_RED_30C        0x47,0x15,0x15   // #471515
-#define C_RED_30D        0x70,0x21,0x21   // #702121
-#define C_RED_30E        0xA3,0x31,0x31   // #A33131
-#define C_RED_30F        0xE6,0x45,0x45   // #E64545
-#define C_RED_40A        0x11,0x00,0x00   // #110000
-#define C_RED_40B        0x28,0x02,0x02   // #280202
-#define C_RED_40C        0x47,0x03,0x03   // #470303
-#define C_RED_40D        0x70,0x05,0x05   // #700505
-#define C_RED_40E        0xA3,0x08,0x08   // #A30808
-#define C_RED_40F        0xE6,0x0B,0x0B   // #E60B0B
+const rgb_color C_RED_BASE       = { 0xF8,0x71,0x71 };  // #F87171
+const rgb_color C_RED_10A        = { 0x11,0x10,0x10 };  // #111010
+const rgb_color C_RED_10B        = { 0x28,0x24,0x24 };  // #282424
+const rgb_color C_RED_10C        = { 0x47,0x40,0x40 };  // #474040
+const rgb_color C_RED_10D        = { 0x70,0x65,0x65 };  // #706565
+const rgb_color C_RED_10E        = { 0xA3,0x93,0x93 };  // #A39393
+const rgb_color C_RED_10F        = { 0xE6,0xCF,0xCF };  // #E6CFCF
+const rgb_color C_RED_20A        = { 0x11,0x0C,0x0C };  // #110C0C
+const rgb_color C_RED_20B        = { 0x28,0x1C,0x1C };  // #281C1C
+const rgb_color C_RED_20C        = { 0x47,0x32,0x32 };  // #473232
+const rgb_color C_RED_20D        = { 0x70,0x4E,0x4E };  // #704E4E
+const rgb_color C_RED_20E        = { 0xA3,0x72,0x72 };  // #A37272
+const rgb_color C_RED_20F        = { 0xE6,0xA1,0xA1 };  // #E6A1A1
+const rgb_color C_RED_30A        = { 0x11,0x05,0x05 };  // #110505
+const rgb_color C_RED_30B        = { 0x28,0x0C,0x0C };  // #280C0C
+const rgb_color C_RED_30C        = { 0x47,0x15,0x15 };  // #471515
+const rgb_color C_RED_30D        = { 0x70,0x21,0x21 };  // #702121
+const rgb_color C_RED_30E        = { 0xA3,0x31,0x31 };  // #A33131
+const rgb_color C_RED_30F        = { 0xE6,0x45,0x45 };  // #E64545
+const rgb_color C_RED_40A        = { 0x11,0x00,0x00 };  // #110000
+const rgb_color C_RED_40B        = { 0x28,0x02,0x02 };  // #280202
+const rgb_color C_RED_40C        = { 0x47,0x03,0x03 };  // #470303
+const rgb_color C_RED_40D        = { 0x70,0x05,0x05 };  // #700505
+const rgb_color C_RED_40E        = { 0xA3,0x08,0x08 };  // #A30808
+const rgb_color C_RED_40F        = { 0xE6,0x0B,0x0B };  // #E60B0B
 
-#define C_ORANGE_BASE    0xFB,0x92,0x3C   // #FB923C
-#define C_ORANGE_10A     0x11,0x10,0x10   // #111010
-#define C_ORANGE_10B     0x28,0x26,0x24   // #282624
-#define C_ORANGE_10C     0x47,0x43,0x40   // #474340
-#define C_ORANGE_10D     0x70,0x6A,0x65   // #706A65
-#define C_ORANGE_10E     0xA3,0x9A,0x93   // #A39A93
-#define C_ORANGE_10F     0xE6,0xD9,0xCF   // #E6D9CF
-#define C_ORANGE_20A     0x11,0x0E,0x0C   // #110E0C
-#define C_ORANGE_20B     0x28,0x22,0x1C   // #28221C
-#define C_ORANGE_20C     0x47,0x3B,0x32   // #473B32
-#define C_ORANGE_20D     0x70,0x5E,0x4E   // #705E4E
-#define C_ORANGE_20E     0xA3,0x88,0x72   // #A38872
-#define C_ORANGE_20F     0xE6,0xC0,0xA1   // #E6C0A1
-#define C_ORANGE_30A     0x11,0x0B,0x05   // #110B05
-#define C_ORANGE_30B     0x28,0x19,0x0C   // #28190C
-#define C_ORANGE_30C     0x47,0x2C,0x15   // #472C15
-#define C_ORANGE_30D     0x70,0x45,0x21   // #704521
-#define C_ORANGE_30E     0xA3,0x64,0x31   // #A36431
-#define C_ORANGE_30F     0xE6,0x8D,0x45   // #E68D45
-#define C_ORANGE_40A     0x11,0x08,0x00   // #110800
-#define C_ORANGE_40B     0x28,0x13,0x02   // #281302
-#define C_ORANGE_40C     0x47,0x22,0x03   // #472203
-#define C_ORANGE_40D     0x70,0x35,0x05   // #703505
-#define C_ORANGE_40E     0xA3,0x4E,0x08   // #A34E08
-#define C_ORANGE_40F     0xE6,0x6E,0x0B   // #E66E0B
+const rgb_color C_ORANGE_BASE    = { 0xFB,0x92,0x3C };  // #FB923C
+const rgb_color C_ORANGE_10A     = { 0x11,0x10,0x10 };  // #111010
+const rgb_color C_ORANGE_10B     = { 0x28,0x26,0x24 };  // #282624
+const rgb_color C_ORANGE_10C     = { 0x47,0x43,0x40 };  // #474340
+const rgb_color C_ORANGE_10D     = { 0x70,0x6A,0x65 };  // #706A65
+const rgb_color C_ORANGE_10E     = { 0xA3,0x9A,0x93 };  // #A39A93
+const rgb_color C_ORANGE_10F     = { 0xE6,0xD9,0xCF };  // #E6D9CF
+const rgb_color C_ORANGE_20A     = { 0x11,0x0E,0x0C };  // #110E0C
+const rgb_color C_ORANGE_20B     = { 0x28,0x22,0x1C };  // #28221C
+const rgb_color C_ORANGE_20C     = { 0x47,0x3B,0x32 };  // #473B32
+const rgb_color C_ORANGE_20D     = { 0x70,0x5E,0x4E };  // #705E4E
+const rgb_color C_ORANGE_20E     = { 0xA3,0x88,0x72 };  // #A38872
+const rgb_color C_ORANGE_20F     = { 0xE6,0xC0,0xA1 };  // #E6C0A1
+const rgb_color C_ORANGE_30A     = { 0x11,0x0B,0x05 };  // #110B05
+const rgb_color C_ORANGE_30B     = { 0x28,0x19,0x0C };  // #28190C
+const rgb_color C_ORANGE_30C     = { 0x47,0x2C,0x15 };  // #472C15
+const rgb_color C_ORANGE_30D     = { 0x70,0x45,0x21 };  // #704521
+const rgb_color C_ORANGE_30E     = { 0xA3,0x64,0x31 };  // #A36431
+const rgb_color C_ORANGE_30F     = { 0xE6,0x8D,0x45 };  // #E68D45
+const rgb_color C_ORANGE_40A     = { 0x11,0x08,0x00 };  // #110800
+const rgb_color C_ORANGE_40B     = { 0x28,0x13,0x02 };  // #281302
+const rgb_color C_ORANGE_40C     = { 0x47,0x22,0x03 };  // #472203
+const rgb_color C_ORANGE_40D     = { 0x70,0x35,0x05 };  // #703505
+const rgb_color C_ORANGE_40E     = { 0xA3,0x4E,0x08 };  // #A34E08
+const rgb_color C_ORANGE_40F     = { 0xE6,0x6E,0x0B };  // #E66E0B
 
-#define C_AMBER_BASE     0xFB,0xBF,0x24   // #FBBF24
-#define C_AMBER_10A      0x11,0x11,0x10   // #111110
-#define C_AMBER_10B      0x28,0x27,0x24   // #282724
-#define C_AMBER_10C      0x47,0x45,0x40   // #474540
-#define C_AMBER_10D      0x70,0x6D,0x65   // #706D65
-#define C_AMBER_10E      0xA3,0x9F,0x93   // #A39F93
-#define C_AMBER_10F      0xE6,0xDF,0xCF   // #E6DFCF
-#define C_AMBER_20A      0x11,0x10,0x0C   // #11100C
-#define C_AMBER_20B      0x28,0x25,0x1C   // #28251C
-#define C_AMBER_20C      0x47,0x41,0x32   // #474132
-#define C_AMBER_20D      0x70,0x67,0x4E   // #70674E
-#define C_AMBER_20E      0xA3,0x96,0x72   // #A39672
-#define C_AMBER_20F      0xE6,0xD3,0xA1   // #E6D3A1
-#define C_AMBER_30A      0x11,0x0E,0x05   // #110E05
-#define C_AMBER_30B      0x28,0x20,0x0C   // #28200C
-#define C_AMBER_30C      0x47,0x39,0x15   // #473915
-#define C_AMBER_30D      0x70,0x5A,0x21   // #705A21
-#define C_AMBER_30E      0xA3,0x83,0x31   // #A38331
-#define C_AMBER_30F      0xE6,0xB9,0x45   // #E6B945
-#define C_AMBER_40A      0x11,0x0D,0x00   // #110D00
-#define C_AMBER_40B      0x28,0x1E,0x02   // #281E02
-#define C_AMBER_40C      0x47,0x34,0x03   // #473403
-#define C_AMBER_40D      0x70,0x52,0x05   // #705205
-#define C_AMBER_40E      0xA3,0x78,0x08   // #A37808
-#define C_AMBER_40F      0xE6,0xA9,0x0B   // #E6A90B
+const rgb_color C_AMBER_BASE     = { 0xFB,0xBF,0x24 };  // #FBBF24
+const rgb_color C_AMBER_10A      = { 0x11,0x11,0x10 };  // #111110
+const rgb_color C_AMBER_10B      = { 0x28,0x27,0x24 };  // #282724
+const rgb_color C_AMBER_10C      = { 0x47,0x45,0x40 };  // #474540
+const rgb_color C_AMBER_10D      = { 0x70,0x6D,0x65 };  // #706D65
+const rgb_color C_AMBER_10E      = { 0xA3,0x9F,0x93 };  // #A39F93
+const rgb_color C_AMBER_10F      = { 0xE6,0xDF,0xCF };  // #E6DFCF
+const rgb_color C_AMBER_20A      = { 0x11,0x10,0x0C };  // #11100C
+const rgb_color C_AMBER_20B      = { 0x28,0x25,0x1C };  // #28251C
+const rgb_color C_AMBER_20C      = { 0x47,0x41,0x32 };  // #474132
+const rgb_color C_AMBER_20D      = { 0x70,0x67,0x4E };  // #70674E
+const rgb_color C_AMBER_20E      = { 0xA3,0x96,0x72 };  // #A39672
+const rgb_color C_AMBER_20F      = { 0xE6,0xD3,0xA1 };  // #E6D3A1
+const rgb_color C_AMBER_30A      = { 0x11,0x0E,0x05 };  // #110E05
+const rgb_color C_AMBER_30B      = { 0x28,0x20,0x0C };  // #28200C
+const rgb_color C_AMBER_30C      = { 0x47,0x39,0x15 };  // #473915
+const rgb_color C_AMBER_30D      = { 0x70,0x5A,0x21 };  // #705A21
+const rgb_color C_AMBER_30E      = { 0xA3,0x83,0x31 };  // #A38331
+const rgb_color C_AMBER_30F      = { 0xE6,0xB9,0x45 };  // #E6B945
+const rgb_color C_AMBER_40A      = { 0x11,0x0D,0x00 };  // #110D00
+const rgb_color C_AMBER_40B      = { 0x28,0x1E,0x02 };  // #281E02
+const rgb_color C_AMBER_40C      = { 0x47,0x34,0x03 };  // #473403
+const rgb_color C_AMBER_40D      = { 0x70,0x52,0x05 };  // #705205
+const rgb_color C_AMBER_40E      = { 0xA3,0x78,0x08 };  // #A37808
+const rgb_color C_AMBER_40F      = { 0xE6,0xA9,0x0B };  // #E6A90B
 
-#define C_YELLOW_BASE    0xFA,0xCC,0x15   // #FACC15
-#define C_YELLOW_10A     0x11,0x11,0x10   // #111110
-#define C_YELLOW_10B     0x28,0x28,0x24   // #282824
-#define C_YELLOW_10C     0x47,0x46,0x40   // #474640
-#define C_YELLOW_10D     0x70,0x6E,0x65   // #706E65
-#define C_YELLOW_10E     0xA3,0xA0,0x93   // #A3A093
-#define C_YELLOW_10F     0xE6,0xE1,0xCF   // #E6E1CF
-#define C_YELLOW_20A     0x11,0x10,0x0C   // #11100C
-#define C_YELLOW_20B     0x28,0x26,0x1C   // #28261C
-#define C_YELLOW_20C     0x47,0x43,0x32   // #474332
-#define C_YELLOW_20D     0x70,0x69,0x4E   // #70694E
-#define C_YELLOW_20E     0xA3,0x99,0x72   // #A39972
-#define C_YELLOW_20F     0xE6,0xD8,0xA1   // #E6D8A1
-#define C_YELLOW_30A     0x11,0x0F,0x05   // #110F05
-#define C_YELLOW_30B     0x28,0x23,0x0C   // #28230C
-#define C_YELLOW_30C     0x47,0x3D,0x15   // #473D15
-#define C_YELLOW_30D     0x70,0x60,0x21   // #706021
-#define C_YELLOW_30E     0xA3,0x8C,0x31   // #A38C31
-#define C_YELLOW_30F     0xE6,0xC6,0x45   // #E6C645
-#define C_YELLOW_40A     0x11,0x0E,0x00   // #110E00
-#define C_YELLOW_40B     0x28,0x21,0x02   // #282102
-#define C_YELLOW_40C     0x47,0x3A,0x03   // #473A03
-#define C_YELLOW_40D     0x70,0x5B,0x05   // #705B05
-#define C_YELLOW_40E     0xA3,0x84,0x08   // #A38408
-#define C_YELLOW_40F     0xE6,0xBA,0x0B   // #E6BA0B
+const rgb_color C_YELLOW_BASE    = { 0xFA,0xCC,0x15 };  // #FACC15
+const rgb_color C_YELLOW_10A     = { 0x11,0x11,0x10 };  // #111110
+const rgb_color C_YELLOW_10B     = { 0x28,0x28,0x24 };  // #282824
+const rgb_color C_YELLOW_10C     = { 0x47,0x46,0x40 };  // #474640
+const rgb_color C_YELLOW_10D     = { 0x70,0x6E,0x65 };  // #706E65
+const rgb_color C_YELLOW_10E     = { 0xA3,0xA0,0x93 };  // #A3A093
+const rgb_color C_YELLOW_10F     = { 0xE6,0xE1,0xCF };  // #E6E1CF
+const rgb_color C_YELLOW_20A     = { 0x11,0x10,0x0C };  // #11100C
+const rgb_color C_YELLOW_20B     = { 0x28,0x26,0x1C };  // #28261C
+const rgb_color C_YELLOW_20C     = { 0x47,0x43,0x32 };  // #474332
+const rgb_color C_YELLOW_20D     = { 0x70,0x69,0x4E };  // #70694E
+const rgb_color C_YELLOW_20E     = { 0xA3,0x99,0x72 };  // #A39972
+const rgb_color C_YELLOW_20F     = { 0xE6,0xD8,0xA1 };  // #E6D8A1
+const rgb_color C_YELLOW_30A     = { 0x11,0x0F,0x05 };  // #110F05
+const rgb_color C_YELLOW_30B     = { 0x28,0x23,0x0C };  // #28230C
+const rgb_color C_YELLOW_30C     = { 0x47,0x3D,0x15 };  // #473D15
+const rgb_color C_YELLOW_30D     = { 0x70,0x60,0x21 };  // #706021
+const rgb_color C_YELLOW_30E     = { 0xA3,0x8C,0x31 };  // #A38C31
+const rgb_color C_YELLOW_30F     = { 0xE6,0xC6,0x45 };  // #E6C645
+const rgb_color C_YELLOW_40A     = { 0x11,0x0E,0x00 };  // #110E00
+const rgb_color C_YELLOW_40B     = { 0x28,0x21,0x02 };  // #282102
+const rgb_color C_YELLOW_40C     = { 0x47,0x3A,0x03 };  // #473A03
+const rgb_color C_YELLOW_40D     = { 0x70,0x5B,0x05 };  // #705B05
+const rgb_color C_YELLOW_40E     = { 0xA3,0x84,0x08 };  // #A38408
+const rgb_color C_YELLOW_40F     = { 0xE6,0xBA,0x0B };  // #E6BA0B
 
-#define C_LIME_BASE      0xA3,0xE6,0x35   // #A3E635
-#define C_LIME_10A       0x11,0x11,0x10   // #111110
-#define C_LIME_10B       0x27,0x28,0x24   // #272824
-#define C_LIME_10C       0x44,0x47,0x40   // #444740
-#define C_LIME_10D       0x6C,0x70,0x65   // #6C7065
-#define C_LIME_10E       0x9D,0xA3,0x93   // #9DA393
-#define C_LIME_10F       0xDD,0xE6,0xCF   // #DDE6CF
-#define C_LIME_20A       0x0F,0x11,0x0C   // #0F110C
-#define C_LIME_20B       0x24,0x28,0x1C   // #24281C
-#define C_LIME_20C       0x3F,0x47,0x32   // #3F4732
-#define C_LIME_20D       0x63,0x70,0x4E   // #63704E
-#define C_LIME_20E       0x91,0xA3,0x72   // #91A372
-#define C_LIME_20F       0xCC,0xE6,0xA1   // #CCE6A1
-#define C_LIME_30A       0x0D,0x11,0x05   // #0D1105
-#define C_LIME_30B       0x1E,0x28,0x0C   // #1E280C
-#define C_LIME_30C       0x34,0x47,0x15   // #344715
-#define C_LIME_30D       0x52,0x70,0x21   // #527021
-#define C_LIME_30E       0x78,0xA3,0x31   // #78A331
-#define C_LIME_30F       0xA9,0xE6,0x45   // #A9E645
-#define C_LIME_40A       0x0B,0x11,0x00   // #0B1100
-#define C_LIME_40B       0x1A,0x28,0x02   // #1A2802
-#define C_LIME_40C       0x2D,0x47,0x03   // #2D4703
-#define C_LIME_40D       0x48,0x70,0x05   // #487005
-#define C_LIME_40E       0x68,0xA3,0x08   // #68A308
-#define C_LIME_40F       0x93,0xE6,0x0B   // #93E60B
+const rgb_color C_LIME_BASE      = { 0xA3,0xE6,0x35 };  // #A3E635
+const rgb_color C_LIME_10A       = { 0x11,0x11,0x10 };  // #111110
+const rgb_color C_LIME_10B       = { 0x27,0x28,0x24 };  // #272824
+const rgb_color C_LIME_10C       = { 0x44,0x47,0x40 };  // #444740
+const rgb_color C_LIME_10D       = { 0x6C,0x70,0x65 };  // #6C7065
+const rgb_color C_LIME_10E       = { 0x9D,0xA3,0x93 };  // #9DA393
+const rgb_color C_LIME_10F       = { 0xDD,0xE6,0xCF };  // #DDE6CF
+const rgb_color C_LIME_20A       = { 0x0F,0x11,0x0C };  // #0F110C
+const rgb_color C_LIME_20B       = { 0x24,0x28,0x1C };  // #24281C
+const rgb_color C_LIME_20C       = { 0x3F,0x47,0x32 };  // #3F4732
+const rgb_color C_LIME_20D       = { 0x63,0x70,0x4E };  // #63704E
+const rgb_color C_LIME_20E       = { 0x91,0xA3,0x72 };  // #91A372
+const rgb_color C_LIME_20F       = { 0xCC,0xE6,0xA1 };  // #CCE6A1
+const rgb_color C_LIME_30A       = { 0x0D,0x11,0x05 };  // #0D1105
+const rgb_color C_LIME_30B       = { 0x1E,0x28,0x0C };  // #1E280C
+const rgb_color C_LIME_30C       = { 0x34,0x47,0x15 };  // #344715
+const rgb_color C_LIME_30D       = { 0x52,0x70,0x21 };  // #527021
+const rgb_color C_LIME_30E       = { 0x78,0xA3,0x31 };  // #78A331
+const rgb_color C_LIME_30F       = { 0xA9,0xE6,0x45 };  // #A9E645
+const rgb_color C_LIME_40A       = { 0x0B,0x11,0x00 };  // #0B1100
+const rgb_color C_LIME_40B       = { 0x1A,0x28,0x02 };  // #1A2802
+const rgb_color C_LIME_40C       = { 0x2D,0x47,0x03 };  // #2D4703
+const rgb_color C_LIME_40D       = { 0x48,0x70,0x05 };  // #487005
+const rgb_color C_LIME_40E       = { 0x68,0xA3,0x08 };  // #68A308
+const rgb_color C_LIME_40F       = { 0x93,0xE6,0x0B };  // #93E60B
 
-#define C_GREEN_BASE     0x4A,0xDE,0x80   // #4ADE80
-#define C_GREEN_10A      0x10,0x11,0x10   // #101110
-#define C_GREEN_10B      0x24,0x28,0x26   // #242826
-#define C_GREEN_10C      0x40,0x47,0x43   // #404743
-#define C_GREEN_10D      0x65,0x70,0x69   // #657069
-#define C_GREEN_10E      0x93,0xA3,0x99   // #93A399
-#define C_GREEN_10F      0xCF,0xE6,0xD7   // #CFE6D7
-#define C_GREEN_20A      0x0C,0x11,0x0E   // #0C110E
-#define C_GREEN_20B      0x1C,0x28,0x21   // #1C2821
-#define C_GREEN_20C      0x32,0x47,0x3A   // #32473A
-#define C_GREEN_20D      0x4E,0x70,0x5B   // #4E705B
-#define C_GREEN_20E      0x72,0xA3,0x84   // #72A384
-#define C_GREEN_20F      0xA1,0xE6,0xBA   // #A1E6BA
-#define C_GREEN_30A      0x05,0x11,0x09   // #051109
-#define C_GREEN_30B      0x0C,0x28,0x16   // #0C2816
-#define C_GREEN_30C      0x15,0x47,0x27   // #154727
-#define C_GREEN_30D      0x21,0x70,0x3E   // #21703E
-#define C_GREEN_30E      0x31,0xA3,0x5A   // #31A35A
-#define C_GREEN_30F      0x45,0xE6,0x7F   // #45E67F
-#define C_GREEN_40A      0x00,0x11,0x07   // #001107
-#define C_GREEN_40B      0x02,0x28,0x10   // #022810
-#define C_GREEN_40C      0x03,0x47,0x1C   // #03471C
-#define C_GREEN_40D      0x05,0x70,0x2C   // #05702C
-#define C_GREEN_40E      0x08,0xA3,0x40   // #08A340
-#define C_GREEN_40F      0x0B,0xE6,0x5B   // #0BE65B
+const rgb_color C_GREEN_BASE     = { 0x4A,0xDE,0x80 };  // #4ADE80
+const rgb_color C_GREEN_10A      = { 0x10,0x11,0x10 };  // #101110
+const rgb_color C_GREEN_10B      = { 0x24,0x28,0x26 };  // #242826
+const rgb_color C_GREEN_10C      = { 0x40,0x47,0x43 };  // #404743
+const rgb_color C_GREEN_10D      = { 0x65,0x70,0x69 };  // #657069
+const rgb_color C_GREEN_10E      = { 0x93,0xA3,0x99 };  // #93A399
+const rgb_color C_GREEN_10F      = { 0xCF,0xE6,0xD7 };  // #CFE6D7
+const rgb_color C_GREEN_20A      = { 0x0C,0x11,0x0E };  // #0C110E
+const rgb_color C_GREEN_20B      = { 0x1C,0x28,0x21 };  // #1C2821
+const rgb_color C_GREEN_20C      = { 0x32,0x47,0x3A };  // #32473A
+const rgb_color C_GREEN_20D      = { 0x4E,0x70,0x5B };  // #4E705B
+const rgb_color C_GREEN_20E      = { 0x72,0xA3,0x84 };  // #72A384
+const rgb_color C_GREEN_20F      = { 0xA1,0xE6,0xBA };  // #A1E6BA
+const rgb_color C_GREEN_30A      = { 0x05,0x11,0x09 };  // #051109
+const rgb_color C_GREEN_30B      = { 0x0C,0x28,0x16 };  // #0C2816
+const rgb_color C_GREEN_30C      = { 0x15,0x47,0x27 };  // #154727
+const rgb_color C_GREEN_30D      = { 0x21,0x70,0x3E };  // #21703E
+const rgb_color C_GREEN_30E      = { 0x31,0xA3,0x5A };  // #31A35A
+const rgb_color C_GREEN_30F      = { 0x45,0xE6,0x7F };  // #45E67F
+const rgb_color C_GREEN_40A      = { 0x00,0x11,0x07 };  // #001107
+const rgb_color C_GREEN_40B      = { 0x02,0x28,0x10 };  // #022810
+const rgb_color C_GREEN_40C      = { 0x03,0x47,0x1C };  // #03471C
+const rgb_color C_GREEN_40D      = { 0x05,0x70,0x2C };  // #05702C
+const rgb_color C_GREEN_40E      = { 0x08,0xA3,0x40 };  // #08A340
+const rgb_color C_GREEN_40F      = { 0x0B,0xE6,0x5B };  // #0BE65B
 
-#define C_EMERALD_BASE   0x34,0xD3,0x99   // #34D399
-#define C_EMERALD_10A    0x10,0x11,0x11   // #101111
-#define C_EMERALD_10B    0x24,0x28,0x27   // #242827
-#define C_EMERALD_10C    0x40,0x47,0x45   // #404745
-#define C_EMERALD_10D    0x65,0x70,0x6C   // #65706C
-#define C_EMERALD_10E    0x93,0xA3,0x9D   // #93A39D
-#define C_EMERALD_10F    0xCF,0xE6,0xDD   // #CFE6DD
-#define C_EMERALD_20A    0x0C,0x11,0x0F   // #0C110F
-#define C_EMERALD_20B    0x1C,0x28,0x24   // #1C2824
-#define C_EMERALD_20C    0x32,0x47,0x3F   // #32473F
-#define C_EMERALD_20D    0x4E,0x70,0x64   // #4E7064
-#define C_EMERALD_20E    0x72,0xA3,0x91   // #72A391
-#define C_EMERALD_20F    0xA1,0xE6,0xCD   // #A1E6CD
-#define C_EMERALD_30A    0x05,0x11,0x0D   // #05110D
-#define C_EMERALD_30B    0x0C,0x28,0x1E   // #0C281E
-#define C_EMERALD_30C    0x15,0x47,0x35   // #154735
-#define C_EMERALD_30D    0x21,0x70,0x53   // #217053
-#define C_EMERALD_30E    0x31,0xA3,0x7A   // #31A37A
-#define C_EMERALD_30F    0x45,0xE6,0xAB   // #45E6AB
-#define C_EMERALD_40A    0x00,0x11,0x0B   // #00110B
-#define C_EMERALD_40B    0x02,0x28,0x1A   // #02281A
-#define C_EMERALD_40C    0x03,0x47,0x2E   // #03472E
-#define C_EMERALD_40D    0x05,0x70,0x49   // #057049
-#define C_EMERALD_40E    0x08,0xA3,0x6B   // #08A36B
-#define C_EMERALD_40F    0x0B,0xE6,0x96   // #0BE696
+const rgb_color C_EMERALD_BASE   = { 0x34,0xD3,0x99 };  // #34D399
+const rgb_color C_EMERALD_10A    = { 0x10,0x11,0x11 };  // #101111
+const rgb_color C_EMERALD_10B    = { 0x24,0x28,0x27 };  // #242827
+const rgb_color C_EMERALD_10C    = { 0x40,0x47,0x45 };  // #404745
+const rgb_color C_EMERALD_10D    = { 0x65,0x70,0x6C };  // #65706C
+const rgb_color C_EMERALD_10E    = { 0x93,0xA3,0x9D };  // #93A39D
+const rgb_color C_EMERALD_10F    = { 0xCF,0xE6,0xDD };  // #CFE6DD
+const rgb_color C_EMERALD_20A    = { 0x0C,0x11,0x0F };  // #0C110F
+const rgb_color C_EMERALD_20B    = { 0x1C,0x28,0x24 };  // #1C2824
+const rgb_color C_EMERALD_20C    = { 0x32,0x47,0x3F };  // #32473F
+const rgb_color C_EMERALD_20D    = { 0x4E,0x70,0x64 };  // #4E7064
+const rgb_color C_EMERALD_20E    = { 0x72,0xA3,0x91 };  // #72A391
+const rgb_color C_EMERALD_20F    = { 0xA1,0xE6,0xCD };  // #A1E6CD
+const rgb_color C_EMERALD_30A    = { 0x05,0x11,0x0D };  // #05110D
+const rgb_color C_EMERALD_30B    = { 0x0C,0x28,0x1E };  // #0C281E
+const rgb_color C_EMERALD_30C    = { 0x15,0x47,0x35 };  // #154735
+const rgb_color C_EMERALD_30D    = { 0x21,0x70,0x53 };  // #217053
+const rgb_color C_EMERALD_30E    = { 0x31,0xA3,0x7A };  // #31A37A
+const rgb_color C_EMERALD_30F    = { 0x45,0xE6,0xAB };  // #45E6AB
+const rgb_color C_EMERALD_40A    = { 0x00,0x11,0x0B };  // #00110B
+const rgb_color C_EMERALD_40B    = { 0x02,0x28,0x1A };  // #02281A
+const rgb_color C_EMERALD_40C    = { 0x03,0x47,0x2E };  // #03472E
+const rgb_color C_EMERALD_40D    = { 0x05,0x70,0x49 };  // #057049
+const rgb_color C_EMERALD_40E    = { 0x08,0xA3,0x6B };  // #08A36B
+const rgb_color C_EMERALD_40F    = { 0x0B,0xE6,0x96 };  // #0BE696
 
-#define C_TEAL_BASE      0x2D,0xD4,0xBF   // #2DD4BF
-#define C_TEAL_10A       0x10,0x11,0x11   // #101111
-#define C_TEAL_10B       0x24,0x28,0x28   // #242828
-#define C_TEAL_10C       0x40,0x47,0x46   // #404746
-#define C_TEAL_10D       0x65,0x70,0x6F   // #65706F
-#define C_TEAL_10E       0x93,0xA3,0xA1   // #93A3A1
-#define C_TEAL_10F       0xCF,0xE6,0xE3   // #CFE6E3
-#define C_TEAL_20A       0x0C,0x11,0x11   // #0C1111
-#define C_TEAL_20B       0x1C,0x28,0x27   // #1C2827
-#define C_TEAL_20C       0x32,0x47,0x44   // #324744
-#define C_TEAL_20D       0x4E,0x70,0x6C   // #4E706C
-#define C_TEAL_20E       0x72,0xA3,0x9D   // #72A39D
-#define C_TEAL_20F       0xA1,0xE6,0xDD   // #A1E6DD
-#define C_TEAL_30A       0x05,0x11,0x10   // #051110
-#define C_TEAL_30B       0x0C,0x28,0x25   // #0C2825
-#define C_TEAL_30C       0x15,0x47,0x41   // #154741
-#define C_TEAL_30D       0x21,0x70,0x66   // #217066
-#define C_TEAL_30E       0x31,0xA3,0x95   // #31A395
-#define C_TEAL_30F       0x45,0xE6,0xD2   // #45E6D2
-#define C_TEAL_40A       0x00,0x11,0x0F   // #00110F
-#define C_TEAL_40B       0x02,0x28,0x24   // #022824
-#define C_TEAL_40C       0x03,0x47,0x3F   // #03473F
-#define C_TEAL_40D       0x05,0x70,0x63   // #057063
-#define C_TEAL_40E       0x08,0xA3,0x90   // #08A390
-#define C_TEAL_40F       0x0B,0xE6,0xCA   // #0BE6CA
+const rgb_color C_TEAL_BASE      = { 0x2D,0xD4,0xBF };  // #2DD4BF
+const rgb_color C_TEAL_10A       = { 0x10,0x11,0x11 };  // #101111
+const rgb_color C_TEAL_10B       = { 0x24,0x28,0x28 };  // #242828
+const rgb_color C_TEAL_10C       = { 0x40,0x47,0x46 };  // #404746
+const rgb_color C_TEAL_10D       = { 0x65,0x70,0x6F };  // #65706F
+const rgb_color C_TEAL_10E       = { 0x93,0xA3,0xA1 };  // #93A3A1
+const rgb_color C_TEAL_10F       = { 0xCF,0xE6,0xE3 };  // #CFE6E3
+const rgb_color C_TEAL_20A       = { 0x0C,0x11,0x11 };  // #0C1111
+const rgb_color C_TEAL_20B       = { 0x1C,0x28,0x27 };  // #1C2827
+const rgb_color C_TEAL_20C       = { 0x32,0x47,0x44 };  // #324744
+const rgb_color C_TEAL_20D       = { 0x4E,0x70,0x6C };  // #4E706C
+const rgb_color C_TEAL_20E       = { 0x72,0xA3,0x9D };  // #72A39D
+const rgb_color C_TEAL_20F       = { 0xA1,0xE6,0xDD };  // #A1E6DD
+const rgb_color C_TEAL_30A       = { 0x05,0x11,0x10 };  // #051110
+const rgb_color C_TEAL_30B       = { 0x0C,0x28,0x25 };  // #0C2825
+const rgb_color C_TEAL_30C       = { 0x15,0x47,0x41 };  // #154741
+const rgb_color C_TEAL_30D       = { 0x21,0x70,0x66 };  // #217066
+const rgb_color C_TEAL_30E       = { 0x31,0xA3,0x95 };  // #31A395
+const rgb_color C_TEAL_30F       = { 0x45,0xE6,0xD2 };  // #45E6D2
+const rgb_color C_TEAL_40A       = { 0x00,0x11,0x0F };  // #00110F
+const rgb_color C_TEAL_40B       = { 0x02,0x28,0x24 };  // #022824
+const rgb_color C_TEAL_40C       = { 0x03,0x47,0x3F };  // #03473F
+const rgb_color C_TEAL_40D       = { 0x05,0x70,0x63 };  // #057063
+const rgb_color C_TEAL_40E       = { 0x08,0xA3,0x90 };  // #08A390
+const rgb_color C_TEAL_40F       = { 0x0B,0xE6,0xCA };  // #0BE6CA
 
-#define C_CYAN_BASE      0x22,0xD3,0xEE   // #22D3EE
-#define C_CYAN_10A       0x10,0x11,0x11   // #101111
-#define C_CYAN_10B       0x24,0x28,0x28   // #242828
-#define C_CYAN_10C       0x40,0x46,0x47   // #404647
-#define C_CYAN_10D       0x65,0x6F,0x70   // #656F70
-#define C_CYAN_10E       0x93,0xA1,0xA3   // #93A1A3
-#define C_CYAN_10F       0xCF,0xE3,0xE6   // #CFE3E6
-#define C_CYAN_20A       0x0C,0x11,0x11   // #0C1111
-#define C_CYAN_20B       0x1C,0x27,0x28   // #1C2728
-#define C_CYAN_20C       0x32,0x44,0x47   // #324447
-#define C_CYAN_20D       0x4E,0x6C,0x70   // #4E6C70
-#define C_CYAN_20E       0x72,0x9D,0xA3   // #729DA3
-#define C_CYAN_20F       0xA1,0xDD,0xE6   // #A1DDE6
-#define C_CYAN_30A       0x05,0x10,0x11   // #051011
-#define C_CYAN_30B       0x0C,0x25,0x28   // #0C2528
-#define C_CYAN_30C       0x15,0x41,0x47   // #154147
-#define C_CYAN_30D       0x21,0x66,0x70   // #216670
-#define C_CYAN_30E       0x31,0x94,0xA3   // #3194A3
-#define C_CYAN_30F       0x45,0xD1,0xE6   // #45D1E6
-#define C_CYAN_40A       0x00,0x0F,0x11   // #000F11
-#define C_CYAN_40B       0x02,0x23,0x28   // #022328
-#define C_CYAN_40C       0x03,0x3E,0x47   // #033E47
-#define C_CYAN_40D       0x05,0x62,0x70   // #056270
-#define C_CYAN_40E       0x08,0x8F,0xA3   // #088FA3
-#define C_CYAN_40F       0x0B,0xC9,0xE6   // #0BC9E6
+const rgb_color C_CYAN_BASE      = { 0x22,0xD3,0xEE };  // #22D3EE
+const rgb_color C_CYAN_10A       = { 0x10,0x11,0x11 };  // #101111
+const rgb_color C_CYAN_10B       = { 0x24,0x28,0x28 };  // #242828
+const rgb_color C_CYAN_10C       = { 0x40,0x46,0x47 };  // #404647
+const rgb_color C_CYAN_10D       = { 0x65,0x6F,0x70 };  // #656F70
+const rgb_color C_CYAN_10E       = { 0x93,0xA1,0xA3 };  // #93A1A3
+const rgb_color C_CYAN_10F       = { 0xCF,0xE3,0xE6 };  // #CFE3E6
+const rgb_color C_CYAN_20A       = { 0x0C,0x11,0x11 };  // #0C1111
+const rgb_color C_CYAN_20B       = { 0x1C,0x27,0x28 };  // #1C2728
+const rgb_color C_CYAN_20C       = { 0x32,0x44,0x47 };  // #324447
+const rgb_color C_CYAN_20D       = { 0x4E,0x6C,0x70 };  // #4E6C70
+const rgb_color C_CYAN_20E       = { 0x72,0x9D,0xA3 };  // #729DA3
+const rgb_color C_CYAN_20F       = { 0xA1,0xDD,0xE6 };  // #A1DDE6
+const rgb_color C_CYAN_30A       = { 0x05,0x10,0x11 };  // #051011
+const rgb_color C_CYAN_30B       = { 0x0C,0x25,0x28 };  // #0C2528
+const rgb_color C_CYAN_30C       = { 0x15,0x41,0x47 };  // #154147
+const rgb_color C_CYAN_30D       = { 0x21,0x66,0x70 };  // #216670
+const rgb_color C_CYAN_30E       = { 0x31,0x94,0xA3 };  // #3194A3
+const rgb_color C_CYAN_30F       = { 0x45,0xD1,0xE6 };  // #45D1E6
+const rgb_color C_CYAN_40A       = { 0x00,0x0F,0x11 };  // #000F11
+const rgb_color C_CYAN_40B       = { 0x02,0x23,0x28 };  // #022328
+const rgb_color C_CYAN_40C       = { 0x03,0x3E,0x47 };  // #033E47
+const rgb_color C_CYAN_40D       = { 0x05,0x62,0x70 };  // #056270
+const rgb_color C_CYAN_40E       = { 0x08,0x8F,0xA3 };  // #088FA3
+const rgb_color C_CYAN_40F       = { 0x0B,0xC9,0xE6 };  // #0BC9E6
 
-#define C_LIGHTBLUE_BASE 0x38,0xBD,0xF8   // #38BDF8
-#define C_LIGHTBLUE_10A  0x10,0x11,0x11   // #101111
-#define C_LIGHTBLUE_10B  0x24,0x27,0x28   // #242728
-#define C_LIGHTBLUE_10C  0x40,0x45,0x47   // #404547
-#define C_LIGHTBLUE_10D  0x65,0x6D,0x70   // #656D70
-#define C_LIGHTBLUE_10E  0x93,0x9E,0xA3   // #939EA3
-#define C_LIGHTBLUE_10F  0xCF,0xDF,0xE6   // #CFDFE6
-#define C_LIGHTBLUE_20A  0x0C,0x10,0x11   // #0C1011
-#define C_LIGHTBLUE_20B  0x1C,0x25,0x28   // #1C2528
-#define C_LIGHTBLUE_20C  0x32,0x41,0x47   // #324147
-#define C_LIGHTBLUE_20D  0x4E,0x66,0x70   // #4E6670
-#define C_LIGHTBLUE_20E  0x72,0x94,0xA3   // #7294A3
-#define C_LIGHTBLUE_20F  0xA1,0xD1,0xE6   // #A1D1E6
-#define C_LIGHTBLUE_30A  0x05,0x0E,0x11   // #050E11
-#define C_LIGHTBLUE_30B  0x0C,0x20,0x28   // #0C2028
-#define C_LIGHTBLUE_30C  0x15,0x38,0x47   // #153847
-#define C_LIGHTBLUE_30D  0x21,0x58,0x70   // #215870
-#define C_LIGHTBLUE_30E  0x31,0x80,0xA3   // #3180A3
-#define C_LIGHTBLUE_30F  0x45,0xB4,0xE6   // #45B4E6
-#define C_LIGHTBLUE_40A  0x00,0x0C,0x11   // #000C11
-#define C_LIGHTBLUE_40B  0x02,0x1D,0x28   // #021D28
-#define C_LIGHTBLUE_40C  0x03,0x32,0x47   // #033247
-#define C_LIGHTBLUE_40D  0x05,0x4F,0x70   // #054F70
-#define C_LIGHTBLUE_40E  0x08,0x74,0xA3   // #0874A3
-#define C_LIGHTBLUE_40F  0x0B,0xA3,0xE6   // #0BA3E6
+const rgb_color C_LIGHTBLUE_BASE = { 0x38,0xBD,0xF8 };  // #38BDF8
+const rgb_color C_LIGHTBLUE_10A  = { 0x10,0x11,0x11 };  // #101111
+const rgb_color C_LIGHTBLUE_10B  = { 0x24,0x27,0x28 };  // #242728
+const rgb_color C_LIGHTBLUE_10C  = { 0x40,0x45,0x47 };  // #404547
+const rgb_color C_LIGHTBLUE_10D  = { 0x65,0x6D,0x70 };  // #656D70
+const rgb_color C_LIGHTBLUE_10E  = { 0x93,0x9E,0xA3 };  // #939EA3
+const rgb_color C_LIGHTBLUE_10F  = { 0xCF,0xDF,0xE6 };  // #CFDFE6
+const rgb_color C_LIGHTBLUE_20A  = { 0x0C,0x10,0x11 };  // #0C1011
+const rgb_color C_LIGHTBLUE_20B  = { 0x1C,0x25,0x28 };  // #1C2528
+const rgb_color C_LIGHTBLUE_20C  = { 0x32,0x41,0x47 };  // #324147
+const rgb_color C_LIGHTBLUE_20D  = { 0x4E,0x66,0x70 };  // #4E6670
+const rgb_color C_LIGHTBLUE_20E  = { 0x72,0x94,0xA3 };  // #7294A3
+const rgb_color C_LIGHTBLUE_20F  = { 0xA1,0xD1,0xE6 };  // #A1D1E6
+const rgb_color C_LIGHTBLUE_30A  = { 0x05,0x0E,0x11 };  // #050E11
+const rgb_color C_LIGHTBLUE_30B  = { 0x0C,0x20,0x28 };  // #0C2028
+const rgb_color C_LIGHTBLUE_30C  = { 0x15,0x38,0x47 };  // #153847
+const rgb_color C_LIGHTBLUE_30D  = { 0x21,0x58,0x70 };  // #215870
+const rgb_color C_LIGHTBLUE_30E  = { 0x31,0x80,0xA3 };  // #3180A3
+const rgb_color C_LIGHTBLUE_30F  = { 0x45,0xB4,0xE6 };  // #45B4E6
+const rgb_color C_LIGHTBLUE_40A  = { 0x00,0x0C,0x11 };  // #000C11
+const rgb_color C_LIGHTBLUE_40B  = { 0x02,0x1D,0x28 };  // #021D28
+const rgb_color C_LIGHTBLUE_40C  = { 0x03,0x32,0x47 };  // #033247
+const rgb_color C_LIGHTBLUE_40D  = { 0x05,0x4F,0x70 };  // #054F70
+const rgb_color C_LIGHTBLUE_40E  = { 0x08,0x74,0xA3 };  // #0874A3
+const rgb_color C_LIGHTBLUE_40F  = { 0x0B,0xA3,0xE6 };  // #0BA3E6
 
-#define C_BLUE_BASE      0x60,0xA5,0xFA   // #60A5FA
-#define C_BLUE_10A       0x10,0x10,0x11   // #101011
-#define C_BLUE_10B       0x24,0x26,0x28   // #242628
-#define C_BLUE_10C       0x40,0x43,0x47   // #404347
-#define C_BLUE_10D       0x65,0x6A,0x70   // #656A70
-#define C_BLUE_10E       0x93,0x9A,0xA3   // #939AA3
-#define C_BLUE_10F       0xCF,0xD9,0xE6   // #CFD9E6
-#define C_BLUE_20A       0x0C,0x0E,0x11   // #0C0E11
-#define C_BLUE_20B       0x1C,0x22,0x28   // #1C2228
-#define C_BLUE_20C       0x32,0x3B,0x47   // #323B47
-#define C_BLUE_20D       0x4E,0x5D,0x70   // #4E5D70
-#define C_BLUE_20E       0x72,0x88,0xA3   // #7288A3
-#define C_BLUE_20F       0xA1,0xC0,0xE6   // #A1C0E6
-#define C_BLUE_30A       0x05,0x0A,0x11   // #050A11
-#define C_BLUE_30B       0x0C,0x19,0x28   // #0C1928
-#define C_BLUE_30C       0x15,0x2B,0x47   // #152B47
-#define C_BLUE_30D       0x21,0x45,0x70   // #214570
-#define C_BLUE_30E       0x31,0x64,0xA3   // #3164A3
-#define C_BLUE_30F       0x45,0x8D,0xE6   // #458DE6
-#define C_BLUE_40A       0x00,0x08,0x11   // #000811
-#define C_BLUE_40B       0x02,0x13,0x28   // #021328
-#define C_BLUE_40C       0x03,0x22,0x47   // #032247
-#define C_BLUE_40D       0x05,0x35,0x70   // #053570
-#define C_BLUE_40E       0x08,0x4D,0xA3   // #084DA3
-#define C_BLUE_40F       0x0B,0x6D,0xE6   // #0B6DE6
+const rgb_color C_BLUE_BASE      = { 0x60,0xA5,0xFA };  // #60A5FA
+const rgb_color C_BLUE_10A       = { 0x10,0x10,0x11 };  // #101011
+const rgb_color C_BLUE_10B       = { 0x24,0x26,0x28 };  // #242628
+const rgb_color C_BLUE_10C       = { 0x40,0x43,0x47 };  // #404347
+const rgb_color C_BLUE_10D       = { 0x65,0x6A,0x70 };  // #656A70
+const rgb_color C_BLUE_10E       = { 0x93,0x9A,0xA3 };  // #939AA3
+const rgb_color C_BLUE_10F       = { 0xCF,0xD9,0xE6 };  // #CFD9E6
+const rgb_color C_BLUE_20A       = { 0x0C,0x0E,0x11 };  // #0C0E11
+const rgb_color C_BLUE_20B       = { 0x1C,0x22,0x28 };  // #1C2228
+const rgb_color C_BLUE_20C       = { 0x32,0x3B,0x47 };  // #323B47
+const rgb_color C_BLUE_20D       = { 0x4E,0x5D,0x70 };  // #4E5D70
+const rgb_color C_BLUE_20E       = { 0x72,0x88,0xA3 };  // #7288A3
+const rgb_color C_BLUE_20F       = { 0xA1,0xC0,0xE6 };  // #A1C0E6
+const rgb_color C_BLUE_30A       = { 0x05,0x0A,0x11 };  // #050A11
+const rgb_color C_BLUE_30B       = { 0x0C,0x19,0x28 };  // #0C1928
+const rgb_color C_BLUE_30C       = { 0x15,0x2B,0x47 };  // #152B47
+const rgb_color C_BLUE_30D       = { 0x21,0x45,0x70 };  // #214570
+const rgb_color C_BLUE_30E       = { 0x31,0x64,0xA3 };  // #3164A3
+const rgb_color C_BLUE_30F       = { 0x45,0x8D,0xE6 };  // #458DE6
+const rgb_color C_BLUE_40A       = { 0x00,0x08,0x11 };  // #000811
+const rgb_color C_BLUE_40B       = { 0x02,0x13,0x28 };  // #021328
+const rgb_color C_BLUE_40C       = { 0x03,0x22,0x47 };  // #032247
+const rgb_color C_BLUE_40D       = { 0x05,0x35,0x70 };  // #053570
+const rgb_color C_BLUE_40E       = { 0x08,0x4D,0xA3 };  // #084DA3
+const rgb_color C_BLUE_40F       = { 0x0B,0x6D,0xE6 };  // #0B6DE6
 
-#define C_INDIGO_BASE    0x81,0x8C,0xF8   // #818CF8
-#define C_INDIGO_10A     0x10,0x10,0x11   // #101011
-#define C_INDIGO_10B     0x24,0x25,0x28   // #242528
-#define C_INDIGO_10C     0x40,0x41,0x47   // #404147
-#define C_INDIGO_10D     0x65,0x66,0x70   // #656670
-#define C_INDIGO_10E     0x93,0x94,0xA3   // #9394A3
-#define C_INDIGO_10F     0xCF,0xD1,0xE6   // #CFD1E6
-#define C_INDIGO_20A     0x0C,0x0D,0x11   // #0C0D11
-#define C_INDIGO_20B     0x1C,0x1D,0x28   // #1C1D28
-#define C_INDIGO_20C     0x32,0x34,0x47   // #323447
-#define C_INDIGO_20D     0x4E,0x51,0x70   // #4E5170
-#define C_INDIGO_20E     0x72,0x77,0xA3   // #7277A3
-#define C_INDIGO_20F     0xA1,0xA7,0xE6   // #A1A7E6
-#define C_INDIGO_30A     0x05,0x06,0x11   // #050611
-#define C_INDIGO_30B     0x0C,0x0E,0x28   // #0C0E28
-#define C_INDIGO_30C     0x15,0x1A,0x47   // #151A47
-#define C_INDIGO_30D     0x21,0x29,0x70   // #212970
-#define C_INDIGO_30E     0x31,0x3B,0xA3   // #313BA3
-#define C_INDIGO_30F     0x45,0x54,0xE6   // #4554E6
-#define C_INDIGO_40A     0x00,0x02,0x11   // #000211
-#define C_INDIGO_40B     0x02,0x05,0x28   // #020528
-#define C_INDIGO_40C     0x03,0x09,0x47   // #030947
-#define C_INDIGO_40D     0x05,0x0F,0x70   // #050F70
-#define C_INDIGO_40E     0x08,0x16,0xA3   // #0816A3
-#define C_INDIGO_40F     0x0B,0x1F,0xE6   // #0B1FE6
+const rgb_color C_INDIGO_BASE    = { 0x81,0x8C,0xF8 };  // #818CF8
+const rgb_color C_INDIGO_10A     = { 0x10,0x10,0x11 };  // #101011
+const rgb_color C_INDIGO_10B     = { 0x24,0x25,0x28 };  // #242528
+const rgb_color C_INDIGO_10C     = { 0x40,0x41,0x47 };  // #404147
+const rgb_color C_INDIGO_10D     = { 0x65,0x66,0x70 };  // #656670
+const rgb_color C_INDIGO_10E     = { 0x93,0x94,0xA3 };  // #9394A3
+const rgb_color C_INDIGO_10F     = { 0xCF,0xD1,0xE6 };  // #CFD1E6
+const rgb_color C_INDIGO_20A     = { 0x0C,0x0D,0x11 };  // #0C0D11
+const rgb_color C_INDIGO_20B     = { 0x1C,0x1D,0x28 };  // #1C1D28
+const rgb_color C_INDIGO_20C     = { 0x32,0x34,0x47 };  // #323447
+const rgb_color C_INDIGO_20D     = { 0x4E,0x51,0x70 };  // #4E5170
+const rgb_color C_INDIGO_20E     = { 0x72,0x77,0xA3 };  // #7277A3
+const rgb_color C_INDIGO_20F     = { 0xA1,0xA7,0xE6 };  // #A1A7E6
+const rgb_color C_INDIGO_30A     = { 0x05,0x06,0x11 };  // #050611
+const rgb_color C_INDIGO_30B     = { 0x0C,0x0E,0x28 };  // #0C0E28
+const rgb_color C_INDIGO_30C     = { 0x15,0x1A,0x47 };  // #151A47
+const rgb_color C_INDIGO_30D     = { 0x21,0x29,0x70 };  // #212970
+const rgb_color C_INDIGO_30E     = { 0x31,0x3B,0xA3 };  // #313BA3
+const rgb_color C_INDIGO_30F     = { 0x45,0x54,0xE6 };  // #4554E6
+const rgb_color C_INDIGO_40A     = { 0x00,0x02,0x11 };  // #000211
+const rgb_color C_INDIGO_40B     = { 0x02,0x05,0x28 };  // #020528
+const rgb_color C_INDIGO_40C     = { 0x03,0x09,0x47 };  // #030947
+const rgb_color C_INDIGO_40D     = { 0x05,0x0F,0x70 };  // #050F70
+const rgb_color C_INDIGO_40E     = { 0x08,0x16,0xA3 };  // #0816A3
+const rgb_color C_INDIGO_40F     = { 0x0B,0x1F,0xE6 };  // #0B1FE6
 
-#define C_VIOLET_BASE    0xA7,0x8B,0xFA   // #A78BFA
-#define C_VIOLET_10A     0x10,0x10,0x11   // #101011
-#define C_VIOLET_10B     0x25,0x24,0x28   // #252428
-#define C_VIOLET_10C     0x42,0x40,0x47   // #424047
-#define C_VIOLET_10D     0x68,0x65,0x70   // #686570
-#define C_VIOLET_10E     0x97,0x93,0xA3   // #9793A3
-#define C_VIOLET_10F     0xD5,0xCF,0xE6   // #D5CFE6
-#define C_VIOLET_20A     0x0D,0x0C,0x11   // #0D0C11
-#define C_VIOLET_20B     0x1F,0x1C,0x28   // #1F1C28
-#define C_VIOLET_20C     0x37,0x32,0x47   // #373247
-#define C_VIOLET_20D     0x57,0x4E,0x70   // #574E70
-#define C_VIOLET_20E     0x7F,0x72,0xA3   // #7F72A3
-#define C_VIOLET_20F     0xB2,0xA1,0xE6   // #B2A1E6
-#define C_VIOLET_30A     0x08,0x05,0x11   // #080511
-#define C_VIOLET_30B     0x13,0x0C,0x28   // #130C28
-#define C_VIOLET_30C     0x22,0x15,0x47   // #221547
-#define C_VIOLET_30D     0x35,0x21,0x70   // #352170
-#define C_VIOLET_30E     0x4E,0x31,0xA3   // #4E31A3
-#define C_VIOLET_30F     0x6D,0x45,0xE6   // #6D45E6
-#define C_VIOLET_40A     0x05,0x00,0x11   // #050011
-#define C_VIOLET_40B     0x0B,0x02,0x28   // #0B0228
-#define C_VIOLET_40C     0x14,0x03,0x47   // #140347
-#define C_VIOLET_40D     0x20,0x05,0x70   // #200570
-#define C_VIOLET_40E     0x2F,0x08,0xA3   // #2F08A3
-#define C_VIOLET_40F     0x42,0x0B,0xE6   // #420BE6
+const rgb_color C_VIOLET_BASE    = { 0xA7,0x8B,0xFA };  // #A78BFA
+const rgb_color C_VIOLET_10A     = { 0x10,0x10,0x11 };  // #101011
+const rgb_color C_VIOLET_10B     = { 0x25,0x24,0x28 };  // #252428
+const rgb_color C_VIOLET_10C     = { 0x42,0x40,0x47 };  // #424047
+const rgb_color C_VIOLET_10D     = { 0x68,0x65,0x70 };  // #686570
+const rgb_color C_VIOLET_10E     = { 0x97,0x93,0xA3 };  // #9793A3
+const rgb_color C_VIOLET_10F     = { 0xD5,0xCF,0xE6 };  // #D5CFE6
+const rgb_color C_VIOLET_20A     = { 0x0D,0x0C,0x11 };  // #0D0C11
+const rgb_color C_VIOLET_20B     = { 0x1F,0x1C,0x28 };  // #1F1C28
+const rgb_color C_VIOLET_20C     = { 0x37,0x32,0x47 };  // #373247
+const rgb_color C_VIOLET_20D     = { 0x57,0x4E,0x70 };  // #574E70
+const rgb_color C_VIOLET_20E     = { 0x7F,0x72,0xA3 };  // #7F72A3
+const rgb_color C_VIOLET_20F     = { 0xB2,0xA1,0xE6 };  // #B2A1E6
+const rgb_color C_VIOLET_30A     = { 0x08,0x05,0x11 };  // #080511
+const rgb_color C_VIOLET_30B     = { 0x13,0x0C,0x28 };  // #130C28
+const rgb_color C_VIOLET_30C     = { 0x22,0x15,0x47 };  // #221547
+const rgb_color C_VIOLET_30D     = { 0x35,0x21,0x70 };  // #352170
+const rgb_color C_VIOLET_30E     = { 0x4E,0x31,0xA3 };  // #4E31A3
+const rgb_color C_VIOLET_30F     = { 0x6D,0x45,0xE6 };  // #6D45E6
+const rgb_color C_VIOLET_40A     = { 0x05,0x00,0x11 };  // #050011
+const rgb_color C_VIOLET_40B     = { 0x0B,0x02,0x28 };  // #0B0228
+const rgb_color C_VIOLET_40C     = { 0x14,0x03,0x47 };  // #140347
+const rgb_color C_VIOLET_40D     = { 0x20,0x05,0x70 };  // #200570
+const rgb_color C_VIOLET_40E     = { 0x2F,0x08,0xA3 };  // #2F08A3
+const rgb_color C_VIOLET_40F     = { 0x42,0x0B,0xE6 };  // #420BE6
 
-#define C_PURPLE_BASE    0xC0,0x84,0xFC   // #C084FC
-#define C_PURPLE_10A     0x11,0x10,0x11   // #111011
-#define C_PURPLE_10B     0x26,0x24,0x28   // #262428
-#define C_PURPLE_10C     0x44,0x40,0x47   // #444047
-#define C_PURPLE_10D     0x6B,0x65,0x70   // #6B6570
-#define C_PURPLE_10E     0x9B,0x93,0xA3   // #9B93A3
-#define C_PURPLE_10F     0xDA,0xCF,0xE6   // #DACFE6
-#define C_PURPLE_20A     0x0F,0x0C,0x11   // #0F0C11
-#define C_PURPLE_20B     0x22,0x1C,0x28   // #221C28
-#define C_PURPLE_20C     0x3C,0x32,0x47   // #3C3247
-#define C_PURPLE_20D     0x5F,0x4E,0x70   // #5F4E70
-#define C_PURPLE_20E     0x8B,0x72,0xA3   // #8B72A3
-#define C_PURPLE_20F     0xC3,0xA1,0xE6   // #C3A1E6
-#define C_PURPLE_30A     0x0B,0x05,0x11   // #0B0511
-#define C_PURPLE_30B     0x1A,0x0C,0x28   // #1A0C28
-#define C_PURPLE_30C     0x2E,0x15,0x47   // #2E1547
-#define C_PURPLE_30D     0x49,0x21,0x70   // #492170
-#define C_PURPLE_30E     0x6A,0x31,0xA3   // #6A31A3
-#define C_PURPLE_30F     0x95,0x45,0xE6   // #9545E6
-#define C_PURPLE_40A     0x09,0x00,0x11   // #090011
-#define C_PURPLE_40B     0x15,0x02,0x28   // #150228
-#define C_PURPLE_40C     0x25,0x03,0x47   // #250347
-#define C_PURPLE_40D     0x3B,0x05,0x70   // #3B0570
-#define C_PURPLE_40E     0x56,0x08,0xA3   // #5608A3
-#define C_PURPLE_40F     0x78,0x0B,0xE6   // #780BE6
+const rgb_color C_PURPLE_BASE    = { 0xC0,0x84,0xFC };  // #C084FC
+const rgb_color C_PURPLE_10A     = { 0x11,0x10,0x11 };  // #111011
+const rgb_color C_PURPLE_10B     = { 0x26,0x24,0x28 };  // #262428
+const rgb_color C_PURPLE_10C     = { 0x44,0x40,0x47 };  // #444047
+const rgb_color C_PURPLE_10D     = { 0x6B,0x65,0x70 };  // #6B6570
+const rgb_color C_PURPLE_10E     = { 0x9B,0x93,0xA3 };  // #9B93A3
+const rgb_color C_PURPLE_10F     = { 0xDA,0xCF,0xE6 };  // #DACFE6
+const rgb_color C_PURPLE_20A     = { 0x0F,0x0C,0x11 };  // #0F0C11
+const rgb_color C_PURPLE_20B     = { 0x22,0x1C,0x28 };  // #221C28
+const rgb_color C_PURPLE_20C     = { 0x3C,0x32,0x47 };  // #3C3247
+const rgb_color C_PURPLE_20D     = { 0x5F,0x4E,0x70 };  // #5F4E70
+const rgb_color C_PURPLE_20E     = { 0x8B,0x72,0xA3 };  // #8B72A3
+const rgb_color C_PURPLE_20F     = { 0xC3,0xA1,0xE6 };  // #C3A1E6
+const rgb_color C_PURPLE_30A     = { 0x0B,0x05,0x11 };  // #0B0511
+const rgb_color C_PURPLE_30B     = { 0x1A,0x0C,0x28 };  // #1A0C28
+const rgb_color C_PURPLE_30C     = { 0x2E,0x15,0x47 };  // #2E1547
+const rgb_color C_PURPLE_30D     = { 0x49,0x21,0x70 };  // #492170
+const rgb_color C_PURPLE_30E     = { 0x6A,0x31,0xA3 };  // #6A31A3
+const rgb_color C_PURPLE_30F     = { 0x95,0x45,0xE6 };  // #9545E6
+const rgb_color C_PURPLE_40A     = { 0x09,0x00,0x11 };  // #090011
+const rgb_color C_PURPLE_40B     = { 0x15,0x02,0x28 };  // #150228
+const rgb_color C_PURPLE_40C     = { 0x25,0x03,0x47 };  // #250347
+const rgb_color C_PURPLE_40D     = { 0x3B,0x05,0x70 };  // #3B0570
+const rgb_color C_PURPLE_40E     = { 0x56,0x08,0xA3 };  // #5608A3
+const rgb_color C_PURPLE_40F     = { 0x78,0x0B,0xE6 };  // #780BE6
 
-#define C_FUCHSIA_BASE   0xE8,0x79,0xF9   // #E879F9
-#define C_FUCHSIA_10A    0x11,0x10,0x11   // #111011
-#define C_FUCHSIA_10B    0x28,0x24,0x28   // #282428
-#define C_FUCHSIA_10C    0x46,0x40,0x47   // #464047
-#define C_FUCHSIA_10D    0x6F,0x65,0x70   // #6F6570
-#define C_FUCHSIA_10E    0xA1,0x93,0xA3   // #A193A3
-#define C_FUCHSIA_10F    0xE3,0xCF,0xE6   // #E3CFE6
-#define C_FUCHSIA_20A    0x11,0x0C,0x11   // #110C11
-#define C_FUCHSIA_20B    0x27,0x1C,0x28   // #271C28
-#define C_FUCHSIA_20C    0x44,0x32,0x47   // #443247
-#define C_FUCHSIA_20D    0x6C,0x4E,0x70   // #6C4E70
-#define C_FUCHSIA_20E    0x9D,0x72,0xA3   // #9D72A3
-#define C_FUCHSIA_20F    0xDD,0xA1,0xE6   // #DDA1E6
-#define C_FUCHSIA_30A    0x10,0x05,0x11   // #100511
-#define C_FUCHSIA_30B    0x25,0x0C,0x28   // #250C28
-#define C_FUCHSIA_30C    0x41,0x15,0x47   // #411547
-#define C_FUCHSIA_30D    0x66,0x21,0x70   // #662170
-#define C_FUCHSIA_30E    0x94,0x31,0xA3   // #9431A3
-#define C_FUCHSIA_30F    0xD0,0x45,0xE6   // #D045E6
-#define C_FUCHSIA_40A    0x0F,0x00,0x11   // #0F0011
-#define C_FUCHSIA_40B    0x23,0x02,0x28   // #230228
-#define C_FUCHSIA_40C    0x3E,0x03,0x47   // #3E0347
-#define C_FUCHSIA_40D    0x62,0x05,0x70   // #620570
-#define C_FUCHSIA_40E    0x8F,0x08,0xA3   // #8F08A3
-#define C_FUCHSIA_40F    0xC9,0x0B,0xE6   // #C90BE6
+const rgb_color C_FUCHSIA_BASE   = { 0xE8,0x79,0xF9 };  // #E879F9
+const rgb_color C_FUCHSIA_10A    = { 0x11,0x10,0x11 };  // #111011
+const rgb_color C_FUCHSIA_10B    = { 0x28,0x24,0x28 };  // #282428
+const rgb_color C_FUCHSIA_10C    = { 0x46,0x40,0x47 };  // #464047
+const rgb_color C_FUCHSIA_10D    = { 0x6F,0x65,0x70 };  // #6F6570
+const rgb_color C_FUCHSIA_10E    = { 0xA1,0x93,0xA3 };  // #A193A3
+const rgb_color C_FUCHSIA_10F    = { 0xE3,0xCF,0xE6 };  // #E3CFE6
+const rgb_color C_FUCHSIA_20A    = { 0x11,0x0C,0x11 };  // #110C11
+const rgb_color C_FUCHSIA_20B    = { 0x27,0x1C,0x28 };  // #271C28
+const rgb_color C_FUCHSIA_20C    = { 0x44,0x32,0x47 };  // #443247
+const rgb_color C_FUCHSIA_20D    = { 0x6C,0x4E,0x70 };  // #6C4E70
+const rgb_color C_FUCHSIA_20E    = { 0x9D,0x72,0xA3 };  // #9D72A3
+const rgb_color C_FUCHSIA_20F    = { 0xDD,0xA1,0xE6 };  // #DDA1E6
+const rgb_color C_FUCHSIA_30A    = { 0x10,0x05,0x11 };  // #100511
+const rgb_color C_FUCHSIA_30B    = { 0x25,0x0C,0x28 };  // #250C28
+const rgb_color C_FUCHSIA_30C    = { 0x41,0x15,0x47 };  // #411547
+const rgb_color C_FUCHSIA_30D    = { 0x66,0x21,0x70 };  // #662170
+const rgb_color C_FUCHSIA_30E    = { 0x94,0x31,0xA3 };  // #9431A3
+const rgb_color C_FUCHSIA_30F    = { 0xD0,0x45,0xE6 };  // #D045E6
+const rgb_color C_FUCHSIA_40A    = { 0x0F,0x00,0x11 };  // #0F0011
+const rgb_color C_FUCHSIA_40B    = { 0x23,0x02,0x28 };  // #230228
+const rgb_color C_FUCHSIA_40C    = { 0x3E,0x03,0x47 };  // #3E0347
+const rgb_color C_FUCHSIA_40D    = { 0x62,0x05,0x70 };  // #620570
+const rgb_color C_FUCHSIA_40E    = { 0x8F,0x08,0xA3 };  // #8F08A3
+const rgb_color C_FUCHSIA_40F    = { 0xC9,0x0B,0xE6 };  // #C90BE6
 
-#define C_PINK_BASE      0xF4,0x72,0xB6   // #F472B6
-#define C_PINK_10A       0x11,0x10,0x11   // #111011
-#define C_PINK_10B       0x28,0x24,0x27   // #282427
-#define C_PINK_10C       0x47,0x40,0x44   // #474044
-#define C_PINK_10D       0x70,0x65,0x6B   // #70656B
-#define C_PINK_10E       0xA3,0x93,0x9C   // #A3939C
-#define C_PINK_10F       0xE6,0xCF,0xDB   // #E6CFDB
-#define C_PINK_20A       0x11,0x0C,0x0F   // #110C0F
-#define C_PINK_20B       0x28,0x1C,0x23   // #281C23
-#define C_PINK_20C       0x47,0x32,0x3D   // #47323D
-#define C_PINK_20D       0x70,0x4E,0x60   // #704E60
-#define C_PINK_20E       0xA3,0x72,0x8C   // #A3728C
-#define C_PINK_20F       0xE6,0xA1,0xC5   // #E6A1C5
-#define C_PINK_30A       0x11,0x05,0x0B   // #11050B
-#define C_PINK_30B       0x28,0x0C,0x1B   // #280C1B
-#define C_PINK_30C       0x47,0x15,0x2F   // #47152F
-#define C_PINK_30D       0x70,0x21,0x4B   // #70214B
-#define C_PINK_30E       0xA3,0x31,0x6D   // #A3316D
-#define C_PINK_30F       0xE6,0x45,0x99   // #E64599
-#define C_PINK_40A       0x11,0x00,0x09   // #110009
-#define C_PINK_40B       0x28,0x02,0x16   // #280216
-#define C_PINK_40C       0x47,0x03,0x27   // #470327
-#define C_PINK_40D       0x70,0x05,0x3D   // #70053D
-#define C_PINK_40E       0xA3,0x08,0x59   // #A30859
-#define C_PINK_40F       0xE6,0x0B,0x7E   // #E60B7E
+const rgb_color C_PINK_BASE      = { 0xF4,0x72,0xB6 };  // #F472B6
+const rgb_color C_PINK_10A       = { 0x11,0x10,0x11 };  // #111011
+const rgb_color C_PINK_10B       = { 0x28,0x24,0x27 };  // #282427
+const rgb_color C_PINK_10C       = { 0x47,0x40,0x44 };  // #474044
+const rgb_color C_PINK_10D       = { 0x70,0x65,0x6B };  // #70656B
+const rgb_color C_PINK_10E       = { 0xA3,0x93,0x9C };  // #A3939C
+const rgb_color C_PINK_10F       = { 0xE6,0xCF,0xDB };  // #E6CFDB
+const rgb_color C_PINK_20A       = { 0x11,0x0C,0x0F };  // #110C0F
+const rgb_color C_PINK_20B       = { 0x28,0x1C,0x23 };  // #281C23
+const rgb_color C_PINK_20C       = { 0x47,0x32,0x3D };  // #47323D
+const rgb_color C_PINK_20D       = { 0x70,0x4E,0x60 };  // #704E60
+const rgb_color C_PINK_20E       = { 0xA3,0x72,0x8C };  // #A3728C
+const rgb_color C_PINK_20F       = { 0xE6,0xA1,0xC5 };  // #E6A1C5
+const rgb_color C_PINK_30A       = { 0x11,0x05,0x0B };  // #11050B
+const rgb_color C_PINK_30B       = { 0x28,0x0C,0x1B };  // #280C1B
+const rgb_color C_PINK_30C       = { 0x47,0x15,0x2F };  // #47152F
+const rgb_color C_PINK_30D       = { 0x70,0x21,0x4B };  // #70214B
+const rgb_color C_PINK_30E       = { 0xA3,0x31,0x6D };  // #A3316D
+const rgb_color C_PINK_30F       = { 0xE6,0x45,0x99 };  // #E64599
+const rgb_color C_PINK_40A       = { 0x11,0x00,0x09 };  // #110009
+const rgb_color C_PINK_40B       = { 0x28,0x02,0x16 };  // #280216
+const rgb_color C_PINK_40C       = { 0x47,0x03,0x27 };  // #470327
+const rgb_color C_PINK_40D       = { 0x70,0x05,0x3D };  // #70053D
+const rgb_color C_PINK_40E       = { 0xA3,0x08,0x59 };  // #A30859
+const rgb_color C_PINK_40F       = { 0xE6,0x0B,0x7E };  // #E60B7E
 
-#define C_ROSE_BASE      0xFB,0x71,0x85   // #FB7185
-#define C_ROSE_10A       0x11,0x10,0x10   // #111010
-#define C_ROSE_10B       0x28,0x24,0x25   // #282425
-#define C_ROSE_10C       0x47,0x40,0x41   // #474041
-#define C_ROSE_10D       0x70,0x65,0x67   // #706567
-#define C_ROSE_10E       0xA3,0x93,0x95   // #A39395
-#define C_ROSE_10F       0xE6,0xCF,0xD2   // #E6CFD2
-#define C_ROSE_20A       0x11,0x0C,0x0D   // #110C0D
-#define C_ROSE_20B       0x28,0x1C,0x1E   // #281C1E
-#define C_ROSE_20C       0x47,0x32,0x35   // #473235
-#define C_ROSE_20D       0x70,0x4E,0x53   // #704E53
-#define C_ROSE_20E       0xA3,0x72,0x79   // #A37279
-#define C_ROSE_20F       0xE6,0xA1,0xAB   // #E6A1AB
-#define C_ROSE_30A       0x11,0x05,0x07   // #110507
-#define C_ROSE_30B       0x28,0x0C,0x10   // #280C10
-#define C_ROSE_30C       0x47,0x15,0x1C   // #47151C
-#define C_ROSE_30D       0x70,0x21,0x2D   // #70212D
-#define C_ROSE_30E       0xA3,0x31,0x41   // #A33141
-#define C_ROSE_30F       0xE6,0x45,0x5C   // #E6455C
-#define C_ROSE_40A       0x11,0x00,0x03   // #110003
-#define C_ROSE_40B       0x28,0x02,0x07   // #280207
-#define C_ROSE_40C       0x47,0x03,0x0D   // #47030D
-#define C_ROSE_40D       0x70,0x05,0x15   // #700515
-#define C_ROSE_40E       0xA3,0x08,0x1E   // #A3081E
-#define C_ROSE_40F       0xE6,0x0B,0x2B   // #E60B2B
+const rgb_color C_ROSE_BASE      = { 0xFB,0x71,0x85 };  // #FB7185
+const rgb_color C_ROSE_10A       = { 0x11,0x10,0x10 };  // #111010
+const rgb_color C_ROSE_10B       = { 0x28,0x24,0x25 };  // #282425
+const rgb_color C_ROSE_10C       = { 0x47,0x40,0x41 };  // #474041
+const rgb_color C_ROSE_10D       = { 0x70,0x65,0x67 };  // #706567
+const rgb_color C_ROSE_10E       = { 0xA3,0x93,0x95 };  // #A39395
+const rgb_color C_ROSE_10F       = { 0xE6,0xCF,0xD2 };  // #E6CFD2
+const rgb_color C_ROSE_20A       = { 0x11,0x0C,0x0D };  // #110C0D
+const rgb_color C_ROSE_20B       = { 0x28,0x1C,0x1E };  // #281C1E
+const rgb_color C_ROSE_20C       = { 0x47,0x32,0x35 };  // #473235
+const rgb_color C_ROSE_20D       = { 0x70,0x4E,0x53 };  // #704E53
+const rgb_color C_ROSE_20E       = { 0xA3,0x72,0x79 };  // #A37279
+const rgb_color C_ROSE_20F       = { 0xE6,0xA1,0xAB };  // #E6A1AB
+const rgb_color C_ROSE_30A       = { 0x11,0x05,0x07 };  // #110507
+const rgb_color C_ROSE_30B       = { 0x28,0x0C,0x10 };  // #280C10
+const rgb_color C_ROSE_30C       = { 0x47,0x15,0x1C };  // #47151C
+const rgb_color C_ROSE_30D       = { 0x70,0x21,0x2D };  // #70212D
+const rgb_color C_ROSE_30E       = { 0xA3,0x31,0x41 };  // #A33141
+const rgb_color C_ROSE_30F       = { 0xE6,0x45,0x5C };  // #E6455C
+const rgb_color C_ROSE_40A       = { 0x11,0x00,0x03 };  // #110003
+const rgb_color C_ROSE_40B       = { 0x28,0x02,0x07 };  // #280207
+const rgb_color C_ROSE_40C       = { 0x47,0x03,0x0D };  // #47030D
+const rgb_color C_ROSE_40D       = { 0x70,0x05,0x15 };  // #700515
+const rgb_color C_ROSE_40E       = { 0xA3,0x08,0x1E };  // #A3081E
+const rgb_color C_ROSE_40F       = { 0xE6,0x0B,0x2B };  // #E60B2B
 
-#define C_GRAY_BASE      0xA1,0xA1,0xAA   // #A1A1AA
-#define C_GRAY_10A       0x10,0x10,0x11   // #101011
-#define C_GRAY_10B       0x24,0x24,0x28   // #242428
-#define C_GRAY_10C       0x40,0x40,0x47   // #404047
-#define C_GRAY_10D       0x65,0x65,0x70   // #656570
-#define C_GRAY_10E       0x93,0x93,0xA3   // #9393A3
-#define C_GRAY_10F       0xCF,0xCF,0xE6   // #CFCFE6
-#define C_GRAY_20A       0x0C,0x0C,0x11   // #0C0C11
-#define C_GRAY_20B       0x1C,0x1C,0x28   // #1C1C28
-#define C_GRAY_20C       0x32,0x32,0x47   // #323247
-#define C_GRAY_20D       0x4E,0x4E,0x70   // #4E4E70
-#define C_GRAY_20E       0x72,0x72,0xA3   // #7272A3
-#define C_GRAY_20F       0xA1,0xA1,0xE6   // #A1A1E6
-#define C_GRAY_30A       0x05,0x05,0x11   // #050511
-#define C_GRAY_30B       0x0C,0x0C,0x28   // #0C0C28
-#define C_GRAY_30C       0x15,0x15,0x47   // #151547
-#define C_GRAY_30D       0x21,0x21,0x70   // #212170
-#define C_GRAY_30E       0x31,0x31,0xA3   // #3131A3
-#define C_GRAY_30F       0x45,0x45,0xE6   // #4545E6
-#define C_GRAY_40A       0x00,0x00,0x11   // #000011
-#define C_GRAY_40B       0x02,0x02,0x28   // #020228
-#define C_GRAY_40C       0x03,0x03,0x47   // #030347
-#define C_GRAY_40D       0x05,0x05,0x70   // #050570
-#define C_GRAY_40E       0x08,0x08,0xA3   // #0808A3
-#define C_GRAY_40F       0x0B,0x0B,0xE6   // #0B0BE6
+const rgb_color C_GRAY_BASE      = { 0xA1,0xA1,0xAA };  // #A1A1AA
+const rgb_color C_GRAY_10A       = { 0x10,0x10,0x11 };  // #101011
+const rgb_color C_GRAY_10B       = { 0x24,0x24,0x28 };  // #242428
+const rgb_color C_GRAY_10C       = { 0x40,0x40,0x47 };  // #404047
+const rgb_color C_GRAY_10D       = { 0x65,0x65,0x70 };  // #656570
+const rgb_color C_GRAY_10E       = { 0x93,0x93,0xA3 };  // #9393A3
+const rgb_color C_GRAY_10F       = { 0xCF,0xCF,0xE6 };  // #CFCFE6
+const rgb_color C_GRAY_20A       = { 0x0C,0x0C,0x11 };  // #0C0C11
+const rgb_color C_GRAY_20B       = { 0x1C,0x1C,0x28 };  // #1C1C28
+const rgb_color C_GRAY_20C       = { 0x32,0x32,0x47 };  // #323247
+const rgb_color C_GRAY_20D       = { 0x4E,0x4E,0x70 };  // #4E4E70
+const rgb_color C_GRAY_20E       = { 0x72,0x72,0xA3 };  // #7272A3
+const rgb_color C_GRAY_20F       = { 0xA1,0xA1,0xE6 };  // #A1A1E6
+const rgb_color C_GRAY_30A       = { 0x05,0x05,0x11 };  // #050511
+const rgb_color C_GRAY_30B       = { 0x0C,0x0C,0x28 };  // #0C0C28
+const rgb_color C_GRAY_30C       = { 0x15,0x15,0x47 };  // #151547
+const rgb_color C_GRAY_30D       = { 0x21,0x21,0x70 };  // #212170
+const rgb_color C_GRAY_30E       = { 0x31,0x31,0xA3 };  // #3131A3
+const rgb_color C_GRAY_30F       = { 0x45,0x45,0xE6 };  // #4545E6
+const rgb_color C_GRAY_40A       = { 0x00,0x00,0x11 };  // #000011
+const rgb_color C_GRAY_40B       = { 0x02,0x02,0x28 };  // #020228
+const rgb_color C_GRAY_40C       = { 0x03,0x03,0x47 };  // #030347
+const rgb_color C_GRAY_40D       = { 0x05,0x05,0x70 };  // #050570
+const rgb_color C_GRAY_40E       = { 0x08,0x08,0xA3 };  // #0808A3
+const rgb_color C_GRAY_40F       = { 0x0B,0x0B,0xE6 };  // #0B0BE6

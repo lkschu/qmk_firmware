@@ -108,7 +108,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-#define STARTUP_HSV 0xbe,0xd1,0x99
+// #define STARTUP_HSV 0xbe,0xd1,0x99
+#define STARTUP_HSV 0xee,0x11,0x11
 
 
 
