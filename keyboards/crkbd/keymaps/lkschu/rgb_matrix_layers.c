@@ -13,6 +13,9 @@
 
 /** WARN: STARTUP_HSV is defined in the header! */
 
+// TODO: add global structure which handles ignoring some led, e.g. for pomodore timer
+
+
 
 bool rgb_matrix_layers_initialized = false;
 
@@ -92,23 +95,8 @@ RGB_base hsv_to_hexrgb(HSV_base hsv) {
 }
 
 
+/// Create color definition, includes color adjustments
 struct rgb_matrix_layer_atom from_rgb_color(uint8_t start, uint8_t amount, rgb_color rgb ) {
-    // HSV_base hsv = hexrgb_to_hsv(rgb);
-    // // Those led just don't have the same color intensities, i just can't fix this with a hue shift! :(
-    // if (start <= 6) {
-    //     hsv.h = (hsv.h - 1.0);
-    // } else if (start <= 26) {
-    //     hsv.h = (hsv.h + 1.0);
-    // }
-
-    // if (hsv.h < 0.0) {
-    //     hsv.h += 360.0;
-    // }
-    // if (hsv.h > 360.0) {
-    //     hsv.h -= 360.0;
-    // }
-    // RGB_base rgb_shifted = hsv_to_hexrgb(hsv);
-
     if (start <=26) {
         rgb.blue = (uint8_t) ( ((double) rgb.blue) * 0.60);
     } else {
@@ -126,6 +114,7 @@ struct rgb_matrix_layer_atom from_rgb_color(uint8_t start, uint8_t amount, rgb_c
         if (hsv.v > 1.0) {
             hsv.v = 1.0;
         }
+    } else {
     }
 
     RGB_base rgb_shifted = hsv_to_hexrgb(hsv);
@@ -159,131 +148,135 @@ void init_matrix_rgb_layers(void) {
     }
 
     /** Define your lightning layers here */
-    struct rgb_matrix_layer_atom * led_layer_base_a = malloc(sizeof(struct rgb_matrix_layer_atom)*10);
-    led_layer_base_a[0] = from_rgb_color(0, 6,         C_CYAN_30C);        //underglow
-    led_layer_base_a[1] = from_rgb_color(6, 1,         C_PURPLE_30F);      //alphas
-    led_layer_base_a[3] = from_rgb_color(13, 1,        C_PURPLE_30F);      //alphas
-    led_layer_base_a[2] = from_rgb_color(7, 6,         C_VIOLET_30D);      // normal keys
-    led_layer_base_a[4] = from_rgb_color(14, 13,       C_VIOLET_30D);    // normal keys
+    struct rgb_matrix_layer_atom * led_layer_base_a = malloc(sizeof(struct rgb_matrix_layer_atom)*6);
+    led_layer_base_a[0] = from_rgb_color(0, 6,         C_LIGHTBLUE_30C);        //underglow
+    led_layer_base_a[1] = from_rgb_color(6, 1,         C_VIOLET_40F);      //alphas
+    led_layer_base_a[2] = from_rgb_color(13, 1,        C_VIOLET_40F);      //alphas
+    // led_layer_base_a[6] = from_rgb_color(7, 6,         C_VIOLET_30D);      // normal keys
+    // led_layer_base_a[7] = from_rgb_color(14, 13,       C_VIOLET_30D);    // normal keys
 
-    led_layer_base_a[5] = from_rgb_color(0+27, 6,      C_CYAN_30C);
-    led_layer_base_a[6] = from_rgb_color(6+27, 1,      C_PURPLE_30F);
-    led_layer_base_a[8] = from_rgb_color(13+27, 1,     C_PURPLE_30F);
-    led_layer_base_a[7] = from_rgb_color(7+27, 6,      C_VIOLET_30D);      // normal keys
-    led_layer_base_a[9] = from_rgb_color(14+27, 13,    C_VIOLET_30D);    // normal keys
+    led_layer_base_a[3] = from_rgb_color(0+27, 6,      C_LIGHTBLUE_30C);
+    led_layer_base_a[4] = from_rgb_color(6+27, 1,      C_VIOLET_40F);
+    led_layer_base_a[5] = from_rgb_color(13+27, 1,     C_VIOLET_40F);
+    // led_layer_base_a[8] = from_rgb_color(7+27, 6,      C_VIOLET_30D);      // normal keys
+    // led_layer_base_a[9] = from_rgb_color(14+27, 13,    C_VIOLET_30D);    // normal keys
     led_layer_base.atoms = led_layer_base_a;
-    led_layer_base.len = 10;
+    led_layer_base.len = 6;
 
-    struct rgb_matrix_layer_atom * led_layer_base_colemak_a = malloc(sizeof(struct rgb_matrix_layer_atom)*10);
+    struct rgb_matrix_layer_atom * led_layer_base_colemak_a = malloc(sizeof(struct rgb_matrix_layer_atom)*6);
     led_layer_base_colemak_a [0] = from_rgb_color(0, 6,         C_ROSE_30C);        //underglow
-    led_layer_base_colemak_a [1] = from_rgb_color(6, 1,         C_PURPLE_30F);      //alphas
-    led_layer_base_colemak_a [3] = from_rgb_color(13, 1,        C_PURPLE_30F);      //alphas
-    led_layer_base_colemak_a [2] = from_rgb_color(7, 6,         C_PURPLE_30C);      // normal keys
-    led_layer_base_colemak_a [4] = from_rgb_color(14, 13,       C_PURPLE_30C);    // normal keys
+    led_layer_base_colemak_a [1] = from_rgb_color(6, 1,         C_VIOLET_40F);      //alphas
+    led_layer_base_colemak_a [2] = from_rgb_color(13, 1,        C_VIOLET_40F);      //alphas
+    // led_layer_base_colemak_a [6] = from_rgb_color(7, 6,         C_VIOLET_30D);      // normal keys
+    // led_layer_base_colemak_a [7] = from_rgb_color(14, 13,       C_VIOLET_30D);    // normal keys
 
-    led_layer_base_colemak_a[5] = from_rgb_color(0+27, 6,      C_ROSE_30C);
-    led_layer_base_colemak_a[6] = from_rgb_color(6+27, 1,      C_PURPLE_30F);
-    led_layer_base_colemak_a[8] = from_rgb_color(13+27, 1,     C_PURPLE_30F);
-    led_layer_base_colemak_a[7] = from_rgb_color(7+27, 6,      C_PURPLE_30C);      // normal keys
-    led_layer_base_colemak_a[9] = from_rgb_color(14+27, 13,    C_PURPLE_30C);    // normal keys
+    led_layer_base_colemak_a[3] = from_rgb_color(0+27, 6,      C_ROSE_30C);
+    led_layer_base_colemak_a[4] = from_rgb_color(6+27, 1,      C_VIOLET_40F);
+    led_layer_base_colemak_a[5] = from_rgb_color(13+27, 1,     C_VIOLET_40F);
+    // led_layer_base_colemak_a[8] = from_rgb_color(7+27, 6,      C_VIOLET_30D);      // normal keys
+    // led_layer_base_colemak_a[9] = from_rgb_color(14+27, 13,    C_VIOLET_30D);    // normal keys
     led_layer_colmak.atoms = led_layer_base_colemak_a;
-    led_layer_colmak.len = 10;
+    led_layer_colmak.len = 6;
 
-    struct rgb_matrix_layer_atom * led_layer_lower_a = malloc(sizeof(struct rgb_matrix_layer_atom)*10);
-    led_layer_lower_a[0] = from_rgb_color(0, 6,         C_CYAN_30C);        //underglow
-    led_layer_lower_a[1] = from_rgb_color(6, 1,         C_PINK_30F);      //alphas
-    led_layer_lower_a[3] = from_rgb_color(13, 1,        C_PINK_30F);      //alphas
-    led_layer_lower_a[2] = from_rgb_color(7, 6,         C_FUCHSIA_30C);      // normal keys
-    led_layer_lower_a[4] = from_rgb_color(14, 13,       C_FUCHSIA_30C);    // normal keys
+    struct rgb_matrix_layer_atom * led_layer_lower_a = malloc(sizeof(struct rgb_matrix_layer_atom)*6);
+    led_layer_lower_a[0] = from_rgb_color(0, 6,         C_LIGHTBLUE_30C);        //underglow
+    led_layer_lower_a[1] = from_rgb_color(6, 1,         C_PINK_40E);      //alphas
+    led_layer_lower_a[2] = from_rgb_color(13, 1,        C_PINK_40E);      //alphas
+    // led_layer_lower_a[6] = from_rgb_color(7, 6,         C_VIOLET_30D             );      // normal keys
+    // led_layer_lower_a[7] = from_rgb_color(14, 13,       C_VIOLET_30D             );    // normal keys
 
-    led_layer_lower_a[5] = from_rgb_color(0+27, 6,      C_CYAN_30C);
-    led_layer_lower_a[6] = from_rgb_color(6+27, 1,      C_PINK_30F);
-    led_layer_lower_a[8] = from_rgb_color(13+27, 1,     C_PINK_30F);
-    led_layer_lower_a[7] = from_rgb_color(7+27, 6,      C_FUCHSIA_30C);      // normal keys
-    led_layer_lower_a[9] = from_rgb_color(14+27, 13,    C_FUCHSIA_30C);    // normal keys
+    led_layer_lower_a[3] = from_rgb_color(0+27, 6,      C_LIGHTBLUE_30C);
+    led_layer_lower_a[4] = from_rgb_color(6+27, 1,      C_PINK_40E);
+    led_layer_lower_a[5] = from_rgb_color(13+27, 1,     C_PINK_40E);
+    // led_layer_lower_a[8] = from_rgb_color(7+27, 6,      C_VIOLET_30D             );      // normal keys
+    // led_layer_lower_a[9] = from_rgb_color(14+27, 13,    C_VIOLET_30D             );    // normal keys
     led_layer_lower.atoms = led_layer_lower_a;
-    led_layer_lower.len = 10;
+    led_layer_lower.len = 6;
 
-    struct rgb_matrix_layer_atom * led_layer_lower_alt_a = malloc(sizeof(struct rgb_matrix_layer_atom)*10);
+    struct rgb_matrix_layer_atom * led_layer_lower_alt_a = malloc(sizeof(struct rgb_matrix_layer_atom)*6);
     led_layer_lower_alt_a[0] = from_rgb_color(0, 6,         C_ROSE_30C);        //underglow
-    led_layer_lower_alt_a[1] = from_rgb_color(6, 1,         C_PINK_30F);      //alphas
-    led_layer_lower_alt_a[3] = from_rgb_color(13, 1,        C_PINK_30F);      //alphas
-    led_layer_lower_alt_a[2] = from_rgb_color(7, 6,         C_INDIGO_30E);      // normal keys
-    led_layer_lower_alt_a[4] = from_rgb_color(14, 13,       C_INDIGO_30E);    // normal keys
+    led_layer_lower_alt_a[1] = from_rgb_color(6, 1,         C_PINK_40E);      //alphas
+    led_layer_lower_alt_a[2] = from_rgb_color(13, 1,        C_PINK_40E);      //alphas
+    // led_layer_lower_alt_a[6] = from_rgb_color(7, 6,         C_VIOLET_30D             );      // normal keys
+    // led_layer_lower_alt_a[7] = from_rgb_color(14, 13,       C_VIOLET_30D             );    // normal keys
 
-    led_layer_lower_alt_a[5] = from_rgb_color(0+27, 6,      C_ROSE_30C);
-    led_layer_lower_alt_a[6] = from_rgb_color(6+27, 1,      C_PINK_30F);
-    led_layer_lower_alt_a[8] = from_rgb_color(13+27, 1,     C_PINK_30F);
-    led_layer_lower_alt_a[7] = from_rgb_color(7+27, 6,      C_INDIGO_30E);      // normal keys
-    led_layer_lower_alt_a[9] = from_rgb_color(14+27, 13,    C_INDIGO_30E);    // normal keys
+    led_layer_lower_alt_a[3] = from_rgb_color(0+27, 6,      C_ROSE_30C);
+    led_layer_lower_alt_a[4] = from_rgb_color(6+27, 1,      C_PINK_40E);
+    led_layer_lower_alt_a[5] = from_rgb_color(13+27, 1,     C_PINK_40E);
+    // led_layer_lower_alt_a[8] = from_rgb_color(7+27, 6,      C_VIOLET_30D             );      // normal keys
+    // led_layer_lower_alt_a[9] = from_rgb_color(14+27, 13,    C_VIOLET_30D             );    // normal keys
     led_layer_lower_alt.atoms = led_layer_lower_alt_a;
-    led_layer_lower_alt.len = 10;
+    led_layer_lower_alt.len = 6;
 
-    struct rgb_matrix_layer_atom * led_layer_raise_a = malloc(sizeof(struct rgb_matrix_layer_atom)*10);
-    led_layer_raise_a[0] = from_rgb_color(0, 6,         C_CYAN_30C);        //underglow
-    led_layer_raise_a[1] = from_rgb_color(6, 1,         C_INDIGO_30F);      //alphas
-    led_layer_raise_a[3] = from_rgb_color(13, 1,        C_INDIGO_30F);      //alphas
-    led_layer_raise_a[2] = from_rgb_color(7, 6,         C_EMERALD_30D);     // normal keys
-    led_layer_raise_a[4] = from_rgb_color(14, 13,       C_EMERALD_30D);     // normal keys
+    struct rgb_matrix_layer_atom * led_layer_raise_a = malloc(sizeof(struct rgb_matrix_layer_atom)*6);
+    led_layer_raise_a[0] = from_rgb_color(0, 6,         C_LIGHTBLUE_30C);        //underglow
+    led_layer_raise_a[1] = from_rgb_color(6, 1,         C_INDIGO_40F);      //alphas
+    led_layer_raise_a[2] = from_rgb_color(13, 1,        C_INDIGO_40F);      //alphas
+    // led_layer_raise_a[6] = from_rgb_color(7, 6,         C_VIOLET_30D             );     // normal keys
+    // led_layer_raise_a[7] = from_rgb_color(14, 13,       C_VIOLET_30D             );     // normal keys
 
-    led_layer_raise_a[5] = from_rgb_color(0+27, 6,      C_CYAN_30C);
-    led_layer_raise_a[6] = from_rgb_color(6+27, 1,      C_INDIGO_30F);
-    led_layer_raise_a[8] = from_rgb_color(13+27, 1,     C_INDIGO_30F);
-    led_layer_raise_a[7] = from_rgb_color(7+27, 6,      C_EMERALD_30D);      // normal keys
-    led_layer_raise_a[9] = from_rgb_color(14+27, 13,    C_EMERALD_30D);    // normal keys
+    led_layer_raise_a[3] = from_rgb_color(0+27, 6,      C_LIGHTBLUE_30C);
+    led_layer_raise_a[4] = from_rgb_color(6+27, 1,      C_INDIGO_40F);
+    led_layer_raise_a[5] = from_rgb_color(13+27, 1,     C_INDIGO_40F);
+    // led_layer_raise_a[8] = from_rgb_color(7+27, 6,      C_VIOLET_30D             );      // normal keys
+    // led_layer_raise_a[9] = from_rgb_color(14+27, 13,    C_VIOLET_30D             );    // normal keys
     led_layer_raise.atoms = led_layer_raise_a;
-    led_layer_raise.len = 10;
+    led_layer_raise.len = 6;
 
-    struct rgb_matrix_layer_atom * led_layer_raise_alt_a = malloc(sizeof(struct rgb_matrix_layer_atom)*10);
+    struct rgb_matrix_layer_atom * led_layer_raise_alt_a = malloc(sizeof(struct rgb_matrix_layer_atom)*6);
     led_layer_raise_alt_a[0] = from_rgb_color(0, 6,         C_ROSE_30C);        //underglow
-    led_layer_raise_alt_a[1] = from_rgb_color(6, 1,         C_INDIGO_30F);      //alphas
-    led_layer_raise_alt_a[3] = from_rgb_color(13, 1,        C_INDIGO_30F);      //alphas
-    led_layer_raise_alt_a[2] = from_rgb_color(7, 6,         C_INDIGO_30D);      // normal keys
-    led_layer_raise_alt_a[4] = from_rgb_color(14, 13,       C_INDIGO_30D);    // normal keys
+    led_layer_raise_alt_a[1] = from_rgb_color(6, 1,         C_INDIGO_40F);      //alphas
+    led_layer_raise_alt_a[2] = from_rgb_color(13, 1,        C_INDIGO_40F);      //alphas
+    // led_layer_raise_alt_a[6] = from_rgb_color(7, 6,         C_VIOLET_30D             );      // normal keys
+    // led_layer_raise_alt_a[7] = from_rgb_color(14, 13,       C_VIOLET_30D             );    // normal keys
 
-    led_layer_raise_alt_a[5] = from_rgb_color(0+27, 6,      C_ROSE_30C);
-    led_layer_raise_alt_a[6] = from_rgb_color(6+27, 1,      C_INDIGO_30F);
-    led_layer_raise_alt_a[8] = from_rgb_color(13+27, 1,     C_INDIGO_30F);
-    led_layer_raise_alt_a[7] = from_rgb_color(7+27, 6,      C_INDIGO_30D);      // normal keys
-    led_layer_raise_alt_a[9] = from_rgb_color(14+27, 13,    C_INDIGO_30D);    // normal keys
+    led_layer_raise_alt_a[3] = from_rgb_color(0+27, 6,      C_ROSE_30C);
+    led_layer_raise_alt_a[4] = from_rgb_color(6+27, 1,      C_INDIGO_40F);
+    led_layer_raise_alt_a[5] = from_rgb_color(13+27, 1,     C_INDIGO_40F);
+    // led_layer_raise_alt_a[8] = from_rgb_color(7+27, 6,      C_VIOLET_30D             );      // normal keys
+    // led_layer_raise_alt_a[9] = from_rgb_color(14+27, 13,    C_VIOLET_30D             );    // normal keys
     led_layer_raise_alt.atoms = led_layer_raise_alt_a;
-    led_layer_raise_alt.len = 10;
+    led_layer_raise_alt.len = 6;
 
-    struct rgb_matrix_layer_atom * led_layer_adjust_a = malloc(sizeof(struct rgb_matrix_layer_atom)*24);
-    led_layer_adjust_a[0] = from_rgb_color(6, 1,      C_AMBER_30F);
-    led_layer_adjust_a[1] = from_rgb_color(13, 1,     C_AMBER_30F);
+    struct rgb_matrix_layer_atom * led_layer_adjust_a = malloc(sizeof(struct rgb_matrix_layer_atom)*27);
+    led_layer_adjust_a[0] = from_rgb_color(0, 6,         C_AMBER_30D);        //underglow
+    led_layer_adjust_a[1] = from_rgb_color(0+27, 6,      C_AMBER_30D);
+                                                                                //
+    led_layer_adjust_a[2] = from_rgb_color(6, 1,      C_AMBER_30F);
+    led_layer_adjust_a[3] = from_rgb_color(13, 1,     C_AMBER_30F);
 
-    led_layer_adjust_a[2] = from_rgb_color(6+27, 1,   C_AMBER_30F);
-    led_layer_adjust_a[3] = from_rgb_color(13+27, 1,  C_AMBER_30F);
+    led_layer_adjust_a[4] = from_rgb_color(6+27, 1,   C_AMBER_30F);
+    led_layer_adjust_a[5] = from_rgb_color(13+27, 1,  C_AMBER_30F);
 
-    led_layer_adjust_a[4] = from_rgb_color(17, 2,  C_YELLOW_30D);
-    led_layer_adjust_a[5] = from_rgb_color(23, 1,  C_RED_30F); // reset eeprom
-    led_layer_adjust_a[6] = from_rgb_color(24, 1,  C_RED_30F); // toggle led
-    led_layer_adjust_a[7] = from_rgb_color(25, 1,  C_RED_20C); // toggle led
-
-    led_layer_adjust_a[8]  = from_rgb_color(15, 1,  C_GREEN_30F);
-    led_layer_adjust_a[9]  = from_rgb_color(16, 1,  C_TEAL_30F);
-    led_layer_adjust_a[10] = from_rgb_color(20, 1,  C_GREEN_30F);
-    led_layer_adjust_a[11] = from_rgb_color(19, 1,  C_TEAL_30F);
+    led_layer_adjust_a[6] = from_rgb_color(7, 1,      C_BLUE_40C); // reset board for flashing
+    led_layer_adjust_a[7]  = from_rgb_color(15, 1,  C_GREEN_30F);
+    led_layer_adjust_a[8]  = from_rgb_color(16, 1,  C_TEAL_30F);
+    led_layer_adjust_a[9] = from_rgb_color(17, 2,  C_YELLOW_30D);
+    led_layer_adjust_a[10] = from_rgb_color(19, 1,  C_TEAL_30F);
+    led_layer_adjust_a[11] = from_rgb_color(20, 1,  C_GREEN_30F);
     led_layer_adjust_a[12] = from_rgb_color(21, 1,  C_GREEN_30F);
     led_layer_adjust_a[13] = from_rgb_color(22, 1,  C_TEAL_30F);
+    led_layer_adjust_a[14] = from_rgb_color(23, 1,  C_RED_30F); // reset eeprom
+    led_layer_adjust_a[15] = from_rgb_color(24, 1,  C_RED_30F); // toggle led
+    led_layer_adjust_a[16] = from_rgb_color(25, 1,  C_RED_20C); // toggle led
 
-    led_layer_adjust_a[14] = from_rgb_color(26, 1,  C_NONE);
+    led_layer_adjust_a[17] = from_rgb_color(26, 1,  C_INDIGO_40E); // Switch between QWERTY & Colmak
 
         // fn keys
         // clear rest
-    led_layer_adjust_a[15] = from_rgb_color(27, 8,  C_NONE);
-    led_layer_adjust_a[16] = from_rgb_color(8+27, 4,  C_AMBER_40F);
-    led_layer_adjust_a[17] = from_rgb_color(39, 4,  C_NONE);
-    led_layer_adjust_a[18] = from_rgb_color(16+27, 4,  C_AMBER_40F);
-    led_layer_adjust_a[19] = from_rgb_color(47, 1,  C_NONE);
-    led_layer_adjust_a[20] = from_rgb_color(48, 1,  C_LIME_40F);
-    led_layer_adjust_a[21] = from_rgb_color(22+27, 2,  C_AMBER_40F);
-    led_layer_adjust_a[22] = from_rgb_color(51, 2,  C_NONE);
-    led_layer_adjust_a[23] = from_rgb_color(53, 1,  C_RED_30F);
+    led_layer_adjust_a[18] = from_rgb_color(33, 2,  C_NONE);
+
+    led_layer_adjust_a[19] = from_rgb_color(8+27, 4,  C_AMBER_40F);
+    led_layer_adjust_a[20] = from_rgb_color(39, 4,  C_NONE);
+    led_layer_adjust_a[21] = from_rgb_color(16+27, 4,  C_AMBER_40F);
+    led_layer_adjust_a[22] = from_rgb_color(47, 1,  C_NONE);
+    led_layer_adjust_a[23] = from_rgb_color(48, 1,  C_LIME_40F); // enable/cycle pomodore
+    led_layer_adjust_a[24] = from_rgb_color(22+27, 2,  C_AMBER_40F);
+    led_layer_adjust_a[25] = from_rgb_color(51, 2,  C_NONE);
+    led_layer_adjust_a[26] = from_rgb_color(53, 1,  C_RED_30F); // disable pomodore
 
     led_layer_adjust.atoms = led_layer_adjust_a;
-    led_layer_adjust.len = 24;
+    led_layer_adjust.len = 27;
 
     // struct rgb_matrix_layer * layers[] = {
     //     &led_layer_base,

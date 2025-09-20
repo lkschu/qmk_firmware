@@ -90,9 +90,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     // - violet rgb(
     // #define RGB_MATRIX_DEFAULT_HUE 165
     // -- red-ish
-    #define RGB_MATRIX_DEFAULT_HUE 243
-    #define RGB_MATRIX_DEFAULT_SAT 85
-    #define RGB_MATRIX_DEFAULT_VAL 80
+    #define RGB_MATRIX_DEFAULT_HUE 180
+    #define RGB_MATRIX_DEFAULT_SAT 181
+    #define RGB_MATRIX_DEFAULT_VAL 110
     #define RGB_MATRIX_DEFAULT_SPD 70      //120 = blue/violet at hsv(95,160,4
 
     // custom constants:
@@ -108,8 +108,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-// #define STARTUP_HSV 0xbe,0xd1,0x99
-#define STARTUP_HSV 0xee,0x11,0x11
+#define STARTUP_HSV 0xb4,0xb4,0x70
+// #define STARTUP_HSV 0xee,0x11,0x11
 
 
 
